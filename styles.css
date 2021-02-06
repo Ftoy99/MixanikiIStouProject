@@ -6,5 +6,24 @@ h1 {
   margin-left: 750px;
   border: 2px solid blue;
   text-align: center;
+  display: flex;
+  white-space: nowrap; 
 }
 
+div {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.box {
+  display: block;
+  background-color: rgb(77, 90, 105);
+  width: 500px;
+  height: 500px;
+  margin :auto
+}
