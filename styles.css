@@ -2,9 +2,9 @@ body {
   background-color: powderblue;
 }
 h1 {
-  color: blue;
+  margin-right: 750px;
+  margin-left: 750px;
+  border: 2px solid blue;
   text-align: center;
 }
-p {
-  color: red;
-}
+
