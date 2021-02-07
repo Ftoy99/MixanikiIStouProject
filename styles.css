@@ -22,8 +22,15 @@ img {
 
 .box {
   display: block;
-  background-color: rgb(77, 90, 105);
   width: 500px;
   height: 500px;
-  margin :auto
+  margin :auto;
+  background: radial-gradient(circle, #6741d9 12%,#745fb3 100%);
+  background: -moz-radial-gradient(circle, #6741d9 12%,#745fb3 100%);
+  background: -webkit-radial-gradient(circle, #6741d9 12%,#745fb3 100%);
+  border-radius: 73px 73px 73px 73px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
