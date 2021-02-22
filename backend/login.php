@@ -43,13 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
         else{
-        echo "wrong password";
+        header('Location: ../Secretary/secretary.html');
+        exit;
+        
         
 
         }
     }
     //IF query Didnt FInd Results
     else {
-        echo "No accounts found with this email";
+        header('Location: ../index.php?error=1');
     }
 }
