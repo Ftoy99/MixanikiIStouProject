@@ -16,5 +16,4 @@ if($con === false){
 else{
 //echo "<script type='text/javascript'>alert('Connected To DB');</script>";
 }
-return $con;
 ?>

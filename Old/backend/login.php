@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
         else{
-        header('Location: ../Secretary/secretary.html');
+            header('Location: ../index.php?error=2');
         exit;
         
         
