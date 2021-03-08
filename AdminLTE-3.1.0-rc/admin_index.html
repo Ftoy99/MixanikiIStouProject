@@ -49,7 +49,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="admin_index.html" class="brand-link">
-      <span class="brand-text font-weight-light">System Record System</span>
+      <span class="brand-text font-weight-light">Student Record System</span>
     </a>
 
     <!-- Sidebar -->
@@ -88,7 +88,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Register User</h1>
+            <h1 class="m-0">Main Page</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -103,51 +103,47 @@
 
     <!-- Main content -->
     <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <p class="card-text">
-                  Enter the email of the new user
-                </p>
-                <form action="../../index.html" method="post">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Email">
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
-                      </div>
-                    </div>
-                  </div> 
-                  <label for="user_roles">Choose the new user's role:</label>
-                  <select name="user_roles" id="user_roles">
-                    <option value="0">Student</option>
-                    <option value="1">Lecturer</option>
-                    <option value="2">Administrator</option>
-                  </select>
-
-                    <!-- /.col -->
-                    <div class="col-4">
-                      <button type="submit" class="btn btn-primary btn-block">Enter</button>
-                    </div>
-                    <!-- /.col -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Manage Users</h3>
                   </div>
-                </form>
-
+                <div class="card-body">
+                  <p class="card-text">
+                    <a href="url">Manage Lecturers</a>     
+                  </p>
+                  <p class="card-text">
+                    <a href="url">Manage Students</a>
+                  </p>
+                </div>
               </div>
             </div>
-
+            <!-- /.col-md-6 -->
+            <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                      <h3 class="card-title">Assignments</h3>
+                    </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                        <a href="url">Ongoing Assignments</a>
+                    </p>
+                    <p class="card-text">
+                        <a href="url">Finished Assignments</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <!-- /.col-md-6 -->
           </div>
-          <!-- /.col-md-6 -->
-          <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+          <!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content -->
     </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+    <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
