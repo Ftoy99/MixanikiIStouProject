@@ -8,7 +8,7 @@ define('DB_NAME', 'CEI326');
  
 /* Attempt to connect to MySQL database */
 $con = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
- 
+  $query = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
 // Check connection
 if($con === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
