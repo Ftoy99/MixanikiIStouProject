@@ -25,7 +25,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="admin_index.html" class="nav-link">Home</a>
+        <a href="dashboard.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -158,7 +158,7 @@
 <script src="../jss/dist/js/adminlte.min.js"></script>
 <script> 
   $(function(){
-    $("#sidebar").load("admin_sidebar.html"); 
+    $("#sidebar").load("sidebar.html"); 
   });
   </script> 
 </body>
