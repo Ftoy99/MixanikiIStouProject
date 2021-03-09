@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +30,22 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
+      <!-- Error Handling if Info Is Wrong .  -->
+      <?php
+      if (isset($_SESSION['LoginError'])){
 
+        if($_SESSION['LoginError']=='1'){
+          echo '<p class="login-box-msg" style="color: red;">Password Entered Dosent Match.</p>';
+        }
+
+        if($_SESSION['LoginError']=='2'){
+          echo '<p class="login-box-msg" style="color: red;">Account with this email dosent exist.</p>';
+        }
+
+        unset($_SESSION['LoginError']);
+      }
+     
+      ?>
       <form action="Php/login.php" method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email" name="email">
@@ -66,7 +88,7 @@
         <a href="forgot-password.html">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="register.php" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.card-body -->

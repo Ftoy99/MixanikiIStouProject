@@ -9,27 +9,27 @@
     if (mysqli_num_rows($query) == 1) {
 
         $row = mysqli_fetch_row($query);
-        $dbpass = $row[2];
+        $dbpass = $row[3];
         $password = hash('sha256', $password);
         //if passwords match.
         if ($password == $dbpass) {
-            if ($row[3]==0){
+            if ($row[4]==0){
                 header('Location: ../Student/dashboard.html');
             }
-            if ($row[3]==1){
-                header('Location:   ../Lecturer/dashboard.html');
+            if ($row[4]==1){
+                header('Location: ../Lecturer/dashboard.html');
             }
 
-            if ($row[3]==2){
+            if ($row[4]==2){
                 header('Location: ../Secretary/dashboard.html');
             }
 
 
         } else {
-            echo "Wrong Pass";
+            $_SESSION['LoginError'] = "1";
+            header('Location: ../index.php');
         }
     } else {
-
-        echo "Account Dosent Exist";
+        $_SESSION['LoginError'] = "2";
+        header('Location: ../index.php');
     }
-?>
