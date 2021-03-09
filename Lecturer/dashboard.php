@@ -1,3 +1,8 @@
+<?php
+
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -24,7 +29,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="admin_index.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -74,14 +79,14 @@
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Manage Users</h3>
+                    <h3 class="card-title">Mock Form</h3>
                   </div>
                 <div class="card-body">
                   <p class="card-text">
-                    <a href="url">Manage Lecturers</a>     
+                    <a href="url">Mock Link</a>     
                   </p>
                   <p class="card-text">
-                    <a href="url">Manage Students</a>
+                    <a href="url">Mock Link</a>
                   </p>
                 </div>
               </div>
@@ -90,14 +95,14 @@
             <div class="col-lg-6">
                 <div class="card">
                   <div class="card-header">
-                      <h3 class="card-title">Assignments</h3>
+                      <h3 class="card-title">Mock Form</h3>
                     </div>
                   <div class="card-body">
                     <p class="card-text">
-                        <a href="url">Ongoing Assignments</a>
+                        <a href="url">Mock Link</a>
                     </p>
                     <p class="card-text">
-                        <a href="url">Finished Assignments</a>
+                        <a href="url">Mock Link</a>
                     </p>
                   </div>
                 </div>
@@ -143,7 +148,7 @@
 <script src="../jss/dist/js/adminlte.js"></script>
 <script> 
   $(function(){
-    $("#sidebar").load("sidebar.html"); 
+    $("#sidebar").load("sidebar.php"); 
   });
   </script> 
 </body>
