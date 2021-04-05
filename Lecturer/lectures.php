@@ -84,12 +84,15 @@
                   <h3 class="card-title">Lectures</h3>
 
                   <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
+                    <div class="input-group input-group-sm" style="width: 200px;">
                       <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">
                           <i class="fas fa-search"></i>
+                        </button>
+                        <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#modal-Create-Lecture">
+                          <i class="fas fa-plus"></i>
                         </button>
                       </div>
                     </div>
@@ -106,7 +109,7 @@
                         <th>Time Start</th>
                         <th>Time End</th>
                         <th>Status</th>
-                        <th>Edit Button Below</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -117,20 +120,45 @@
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
                         while ($row = mysqli_fetch_assoc($result)) {
+                          $timestart = date('g:ia', strtotime($row["TimeS"]));
+                          $timeend = date('g:ia', strtotime($row["TimeE"]));
+                          $date = date("d-m-Y", strtotime($row["Date"]));
+                          if (date("d-m-Y") < $date) {
+                            $Status = "Pending";
+                          } else {
+                            $current = $_SERVER["REQUEST_TIME"] + 60 * 60;
+                            $start = strtotime($row["TimeS"]);
+                            $end = strtotime($row["TimeE"]);
+                            if ($current > $end) {
+                              $Status = "Finished";
+                            } else {
+                              if ($current > $start) {
+                                $Status = "Ongoing";
+                              } else {
+                                $Status = "Finished";
+                              }
+                            }
+                          }
                           echo '
                           <tr>
                           <td>' . $row["LectureID"] . '</td>
                           <td>' . $row["Title"] . '</td>
-                          <td>11-7-2014</td>
-                          <td>' . $row["TimeS"] . '</td>
-                          <td>' . $row["TimeE"] . '</td>
-                          <td></td>
-                          <td>EDIT BUTTON HERE</td>
-                        </tr>
-                        ';
+                          <td>' . $date . '</td>
+                          <td>' . $timestart . '</td>
+                          <td>' . $timeend . '</td>
+                          <td>' . $Status . '</td>
+                          <td class="text-right py-0 align-middle">
+                            <div class="btn-group btn-group-sm">
+                              <button class="btn btn-primary" onclick="CreateLectureModal();"><i class="fas fa-eye"></i></button>
+                              <a href="#" class="btn btn-info"><i class="fas fa-cog"></i></a>
+                              <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            </div>
+                          </td>
+                        </tr>';
                         }
                       }
                       ?>
+
                       <!-- <tr>
                           <td>183</td>
                           <td>The Sea</td>
@@ -216,6 +244,61 @@
       $("#sidebar").load("sidebar.php");
     });
   </script>
+
+  <div class="modal fade" id="modal-Create-Lecture">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Default Modal</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Title</label>
+              <input type="text" class="form-control" id="Title" placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label>Date:</label>
+              <input type="text" class="form-control" id="Date" placeholder="dd/mm/yyyy">
+
+              <!-- /.input group -->
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Time</label>
+              <input type="text" class="form-control" id="Time" placeholder="hh:mm">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Duration(Hours)</label>
+              <input type="text" class="form-control" id="Duration" placeholder="hh:mm">
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="CreateLecture()">Create</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <script>
+    function CreateLecture() {
+      var title = $("#foo")[0];
+      var date = $("#foo")[0];
+      var time = $("#foo")[0];
+      var duration = $("#foo")[0];
+      //Insert Here
+
+    }
+  </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 </body>
 
 </html>
