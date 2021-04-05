@@ -98,8 +98,10 @@ session_start();
                     <thead>
                       <tr>
                         <th>A/A</th>
+                        <th>ID</th>
                         <th>Name</th>    
-                        <th>Email</th>                 
+                        <th>Email</th>                
+                        <th></th>
                         <th></th>
                       </tr>
                     </thead>
@@ -119,20 +121,17 @@ session_start();
                           $type = $row["Type"];
                           echo '
                           <tr>   
-                            <td>' . $i .'</td>               
+                            <td>' . $i .'</td>
+                            <td>' . $id .'</td>               
                             <td>' . $name . '</td>
                             <td>' . $email . '</td>
+                            <td hidden>' . $type . '</td>
                             <td class="text-right py-0 align-middle">
-                            <div class="btn-group btn-group-sm">
-                            <form method = "POST">
-                              <input type="hidden" name="edit_id" value="echo $rows['AccountID'];">    
-                              <input type="hidden" name="edit_name" value="echo $rows['Name'];">  
-                              <input type="hidden" name="edit_email" value="echo $rows['Email'];">         
-                              <button class="btn btn-info" type="submit" data-toggle="modal" data-target="#modal-Edit-User"><i class="fas fa-cog"></i></button>
-                              <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            </form>
-                            </div>
-                          </td>
+                              <div class="btn-group btn-group-sm">                       
+                                <button class="btn btn-info" type="submit" data-toggle="modal" data-target="#modal-Edit-User" onclick="modalGetData(this.parentNode.parentNode.parentNode)"><i class="fas fa-cog"></i></button>
+                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                              </div>
+                            </td>
                           </tr>
                           ';
                         }
@@ -188,12 +187,21 @@ session_start();
           <div class="modal-body">
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" value=<?php echo $name ?>>
+              <input type="text" class="form-control" id="name" value="">
             </div>
             <div class="form-group">
               <label>Email</label>
-              <input type="text" class="form-control" id="email" value=<?php echo $email ?>>
-            </div>        
+              <input type="text" class="form-control" id="email" value="">
+            </div>
+            <div class="form-group">
+              <label>Permissions</label>
+              <select class="form-control" id="permissions">
+                <option value=0>Student</option>
+                <option value=1>Lecturer</option>
+                <option value=2>Secretary</option>
+              </select>
+            </div> 
+            <input hidden id="id"></field>       
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -220,31 +228,47 @@ session_start();
       $("#sidebar").load("sidebar.php");
     });
   </script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script>
     function EditUser()
     {
+      var id = $("#id")[0].value;
       var name = $("#name")[0].value;
       var email = $("#email")[0].value;
-      <?php $_SESSION["userID"] = $id ?>
+      var permissions = $("#permissions")[0].value;
+      
       $.post("../Php/userEdit.php", {
+          id: id,
           name: name,
           email: email,
-          userId: userID
+          permissions: permissions
         })
         .done(function(data) {
           if (data == "TRUE") {
             Swal.fire({
               icon: 'success',
-              title: 'Lecture Has Been Created!',
+              title: 'User updated successfully!',
             }).then((result) => {
-              location.reload();
-             
+              location.reload();             
             })
 
           } else {
             alert("Failed!");
           }
         });
+    }
+  </script>
+  <script>
+    function modalGetData(row)
+    {
+      var id = row.cells[1].innerHTML;
+      var name = row.cells[2].innerHTML;
+      var email = row.cells[3].innerHTML;
+      var type = row.cells[4].innerHTML;
+
+      document.getElementById("id").value=id;
+      document.getElementById("name").value=name;
+      document.getElementById("email").value=email;
     }
   </script>
 </body>

@@ -2,10 +2,12 @@
 session_start();
 include_once('connect.php');
 
+$id = $_POST["id"];
 $name = $_POST["name"];
 $email = $_POST["email"];
-$id = $_SESSION['userID'];
-$sql = "UPDATE `accounts`(`Name`, `Email`) SET ('$name','$email') WHERE AccountID = $id;";
+$type = $_POST["permissions"];
+
+$sql = "UPDATE accounts SET Name = '$name', Email = '$email', Type = '$type' WHERE AccountID = '$id';";
 
 if (mysqli_query($con,$sql)){
     echo "TRUE";
