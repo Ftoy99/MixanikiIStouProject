@@ -26,21 +26,21 @@ session_start();
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="dashboard.php" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="lectures.php" class="nav-link">
                     <i class="nav-icon fa fa-book"></i>
-                    <p>Lectures</p>
+                    <p>Manage Lectures</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="students.php" class="nav-link">
                     <i class="nav-icon fa fa-graduation-cap"></i>
-                    <p>Students</p>
+                    <p>Manage Students</p>
                     </a>
                 </li>
             </ul>
