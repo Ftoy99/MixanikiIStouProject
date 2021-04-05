@@ -49,7 +49,7 @@ $email = $_SESSION['email'];
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="students.php" class="nav-link">
                     <i class="nav-icon fa fa-graduation-cap"></i>
                     <p>Manage Students</p>
                     </a>
