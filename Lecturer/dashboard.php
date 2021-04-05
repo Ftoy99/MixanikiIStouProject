@@ -79,7 +79,7 @@
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Mock Form</h3>
+                    <h3 class="card-title">Something Here</h3>
                   </div>
                 <div class="card-body">
                   <p class="card-text">
@@ -95,7 +95,7 @@
             <div class="col-lg-6">
                 <div class="card">
                   <div class="card-header">
-                      <h3 class="card-title">Mock Form</h3>
+                      <h3 class="card-title">Upcoming Lectures</h3>
                     </div>
                   <div class="card-body">
                     <p class="card-text">
