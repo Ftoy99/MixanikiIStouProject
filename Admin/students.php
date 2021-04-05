@@ -100,25 +100,39 @@ session_start();
                         <th>A/A</th>
                         <th>Name</th>    
                         <th>Email</th>                 
-                        <th>Edit Button Below</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
                       include_once('../Php/connect.php');
-                      $result = mysqli_query($con, "SELECT Name, Email FROM accounts WHERE Type = 0");
+                      $result = mysqli_query($con, "SELECT * FROM accounts WHERE Type = 0");
                       $bool = mysqli_num_rows($result);
                       if($bool != 0) {
                         // output data of each row
                         $i = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
                           $i++;
+                          $id = $row["AccountID"];
+                          $name = $row["Name"];
+                          $email = $row["Email"];
+                          $type = $row["Type"];
                           echo '
                           <tr>   
                             <td>' . $i .'</td>               
-                            <td>' . $row["Name"] . '</td>
-                            <td>' . $row["Email"] . '</td>
-                            <td>EDIT BUTTON HERE</td>
+                            <td>' . $name . '</td>
+                            <td>' . $email . '</td>
+                            <td class="text-right py-0 align-middle">
+                            <div class="btn-group btn-group-sm">
+                            <form method = "POST">
+                              <input type="hidden" name="edit_id" value="echo $rows['AccountID'];">    
+                              <input type="hidden" name="edit_name" value="echo $rows['Name'];">  
+                              <input type="hidden" name="edit_email" value="echo $rows['Email'];">         
+                              <button class="btn btn-info" type="submit" data-toggle="modal" data-target="#modal-Edit-User"><i class="fas fa-cog"></i></button>
+                              <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                            </div>
+                          </td>
                           </tr>
                           ';
                         }
@@ -160,6 +174,39 @@ session_start();
   </div>
   <!-- ./wrapper -->
 
+  <!-- Modal -->
+  <div class="modal fade" id="modal-Edit-User">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit User Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" value=<?php echo $name ?>>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" id="email" value=<?php echo $email ?>>
+            </div>        
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="EditUser()">Confirm</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
   <!-- REQUIRED SCRIPTS -->
 
   <!-- jQuery -->
@@ -172,6 +219,33 @@ session_start();
     $(function() {
       $("#sidebar").load("sidebar.php");
     });
+  </script>
+  <script>
+    function EditUser()
+    {
+      var name = $("#name")[0].value;
+      var email = $("#email")[0].value;
+      <?php $_SESSION["userID"] = $id ?>
+      $.post("../Php/userEdit.php", {
+          name: name,
+          email: email,
+          userId: userID
+        })
+        .done(function(data) {
+          if (data == "TRUE") {
+            Swal.fire({
+              icon: 'success',
+              title: 'Lecture Has Been Created!',
+            }).then((result) => {
+              location.reload();
+             
+            })
+
+          } else {
+            alert("Failed!");
+          }
+        });
+    }
   </script>
 </body>
 

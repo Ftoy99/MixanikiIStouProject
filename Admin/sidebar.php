@@ -66,6 +66,12 @@ $email = $_SESSION['email'];
                     <p>Contact Us Queries</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="../index.php" class="nav-link">
+                    <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
+                    <p>Logout</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
