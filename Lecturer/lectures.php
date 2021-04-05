@@ -42,7 +42,7 @@ session_start();
       <!-- SEARCH FORM -->
       <form class="form-inline ml-3">
         <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" onkeyup="">
           <div class="input-group-append">
             <button class="btn btn-navbar" type="submit">
               <i class="fas fa-search"></i>
@@ -66,8 +66,8 @@ session_start();
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                <li class="breadcrumb-item active">Lectures</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -86,13 +86,13 @@ session_start();
 
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 200px;">
-                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                      <input type="text" name="table_search" id="SearchField" class="form-control float-right" placeholder="Search">
 
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
+                        <button class="btn btn-default" onclick="Search()">
                           <i class="fas fa-search"></i>
                         </button>
-                        <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#modal-Create-Lecture">
+                        <button class="btn btn-default" data-toggle="modal" data-target="#modal-Create-Lecture">
                           <i class="fas fa-plus"></i>
                         </button>
                       </div>
@@ -101,10 +101,10 @@ session_start();
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
-                  <table class="table table-hover text-nowrap">
+                  <table class="table table-hover text-nowrap" id="LecturesTable">
                     <thead>
                       <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Title</th>
                         <th>Date</th>
                         <th>Time Start</th>
@@ -120,6 +120,7 @@ session_start();
                       $result = mysqli_query($con, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
+                        $counter = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
                           $timestart = date('g:ia', strtotime($row["TimeS"]));
                           $timeend = date('g:ia', strtotime($row["TimeE"]));
@@ -142,7 +143,7 @@ session_start();
                           }
                           echo '
                           <tr>
-                          <td>' . $row["LectureID"] . '</td>
+                          <td><div data-value="' . $row["LectureID"] . '">' . $counter . '</div></td>
                           <td>' . $row["Title"] . '</td>
                           <td>' . $date . '</td>
                           <td>' . $timestart . '</td>
@@ -150,12 +151,13 @@ session_start();
                           <td>' . $Status . '</td>
                           <td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
-                              <button class="btn btn-primary" onclick="CreateLectureModal(this);"><i class="fas fa-eye"></i></button>
-                              <button class="btn btn-info"><i class="fas fa-cog"></i></button>
-                              <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                              <button class="btn btn-primary" onclick=""><i class="fas fa-eye"></i></button>
+                              <button class="btn btn-info" onclick="CreateLectureModal(this);"><i class="fas fa-cog"></i></button>
+                              <button class="btn btn-danger" onclick="DeleteLecture(this.parentNode.parentNode.parentNode);"><i class="fas fa-trash"></i></button>
                             </div>
                           </td>
                         </tr>';
+                          $counter++;
                         }
                       }
                       ?>
@@ -213,7 +215,7 @@ session_start();
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Default Modal</h4>
+          <h4 class="modal-title">Create Lecture</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -241,7 +243,7 @@ session_start();
           </div>
           <input type="text" class="form-control" id="TID" value="<?php echo $_SESSION['UserID']; ?>" hidden>
           <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" onclick="ClearLecture()" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" onclick="CreateLecture()">Create</button>
           </div>
         </form>
@@ -273,7 +275,7 @@ session_start();
               title: 'Lecture Has Been Created!',
             }).then((result) => {
               location.reload();
-             
+
             })
 
           } else {
@@ -281,6 +283,74 @@ session_start();
           }
         });
     }
+
+    function ClearLecture() {
+      $("#Title")[0].value = "";
+      $("#Date")[0].value = "";
+      $("#STime")[0].value = "";
+      $("#ETime")[0].value = "";
+      $("#TID")[0].value = "";
+
+    }
+
+    function DeleteLecture(row) {
+      var id = row.childNodes[1].childNodes[0].getAttribute('data-value');
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        reverseButtons: true,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirm'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.post("../Php/lectureDelete.php", {
+              id: id,
+            })
+            .done(function(data) {
+              if (data == "TRUE") {
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                );
+                row.parentNode.removeChild(row);
+              
+              }else{
+                alert(data);
+              }
+            });
+        }
+      });
+    }
+  </script>
+  <script>
+  function Search(){
+// Declare variables
+var input, filter, table, tr, td, i ;
+input = document.getElementById("SearchField");
+filter = input.value.toUpperCase();
+table = document.getElementById("LecturesTable");
+tr = table.getElementsByTagName("tr"),
+th = table.getElementsByTagName("th");
+
+// Loop through all table rows, and hide those who don't match the        search query
+for (i = 1; i < tr.length; i++) {
+            tr[i].style.display = "none";
+            for(var j=0; j<th.length; j++){
+        td = tr[i].getElementsByTagName("td")[j];      
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1)                               {
+                tr[i].style.display = "";
+                break;
+            }
+        }
+    }
+}
+
+input.value="";
+  }
   </script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
