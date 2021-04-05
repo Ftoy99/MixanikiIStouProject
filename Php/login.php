@@ -1,8 +1,10 @@
 <?php
     session_start();
     include("connect.php");
-    $email     = $_POST["email"];
-    $password      = $_POST["password"];
+    unset($_SESSION["email"]);
+    $email = $_POST["email"];
+    $_SESSION["email"] = $email;
+    $password = $_POST["password"];
     //Query
     $query = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
     //IF result Do Stuff with them
@@ -30,7 +32,7 @@
             if ($row[4]==2){
                 $_SESSION['UserID'] = $row[1];
                 $_SESSION['Name'] = $row[2];
-                header('Location: ../Secretary/dashboard.php');
+                header('Location: ../Admin/dashboard.php');
 
             }
 

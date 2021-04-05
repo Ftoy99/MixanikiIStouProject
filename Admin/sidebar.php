@@ -1,3 +1,8 @@
+<?php
+session_start();
+include_once '../Php/connect.php';
+$email = $_SESSION['email'];
+?>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -10,7 +15,19 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">Admin Name</a>
+                <a href="#" class="d-block">
+                    <?php
+                        $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE Email = '$email'");
+                        if($name_query)
+                        {
+                            while($rows = mysqli_fetch_assoc($name_query))
+                            {
+                                $name = $rows['Name'];  
+                                echo $name;
+                            }
+                        }
+                    ?>
+                </a>
             </div>
         </div>
 
