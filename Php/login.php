@@ -17,20 +17,20 @@
         //if passwords match.
         if ($password == $dbpass) {
             if ($row[4]==0){
-                $_SESSION['UserID'] = $row[1];
+                $_SESSION['UserID'] = $row[0];
                 $_SESSION['Name'] = $row[2];
                 header('Location: ../Student/dashboard.php');
 
             }
             if ($row[4]==1){
-                $_SESSION['UserID'] = $row[1];
+                $_SESSION['UserID'] = $row[0];
                 $_SESSION['Name'] = $row[2];
                 header('Location: ../Lecturer/dashboard.php');
 
             }
 
             if ($row[4]==2){
-                $_SESSION['UserID'] = $row[1];
+                $_SESSION['UserID'] = $row[0];
                 $_SESSION['Name'] = $row[2];
                 header('Location: ../Admin/dashboard.php');
 

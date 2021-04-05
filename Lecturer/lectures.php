@@ -1,5 +1,6 @@
 <?php
-
+include_once('../Php/connect.php');
+session_start();
 
 ?>
 
@@ -123,19 +124,19 @@
                           $timestart = date('g:ia', strtotime($row["TimeS"]));
                           $timeend = date('g:ia', strtotime($row["TimeE"]));
                           $date = date("d-m-Y", strtotime($row["Date"]));
-                          if (date("d-m-Y") < $date) {
-                            $Status = "Pending";
+                          if (date("d-m-Y") > $date) {
+                            $Status = "Finished";
                           } else {
                             $current = $_SERVER["REQUEST_TIME"] + 60 * 60;
                             $start = strtotime($row["TimeS"]);
                             $end = strtotime($row["TimeE"]);
                             if ($current > $end) {
-                              $Status = "Finished";
+                              $Status = "Pending";
                             } else {
                               if ($current > $start) {
                                 $Status = "Ongoing";
                               } else {
-                                $Status = "Finished";
+                                $Status = "Pending";
                               }
                             }
                           }
@@ -149,52 +150,15 @@
                           <td>' . $Status . '</td>
                           <td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
-                              <button class="btn btn-primary" onclick="CreateLectureModal();"><i class="fas fa-eye"></i></button>
-                              <a href="#" class="btn btn-info"><i class="fas fa-cog"></i></a>
-                              <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                              <button class="btn btn-primary" onclick="CreateLectureModal(this);"><i class="fas fa-eye"></i></button>
+                              <button class="btn btn-info"><i class="fas fa-cog"></i></button>
+                              <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                             </div>
                           </td>
                         </tr>';
                         }
                       }
                       ?>
-
-                      <!-- <tr>
-                          <td>183</td>
-                          <td>The Sea</td>
-                          <td>11-7-2014</td>
-                          <td>3</td>
-                          <td>29</td>
-                          <td>29</td>
-                          <td>29</td>
-                        </tr>
-                        <tr>
-                          <td>219</td>
-                          <td>Alexander Pierce</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-warning">Pending</span></td>
-                          <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          <td>29</td>
-                          <td>29</td>
-                        </tr>
-                        <tr>
-                          <td>657</td>
-                          <td>Bob Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-primary">Approved</span></td>
-                          <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          <td>29</td>
-                          <td>29</td>
-                        </tr>
-                        <tr>
-                          <td>175</td>
-                          <td>Mike Doe</td>
-                          <td>11-7-2014</td>
-                          <td><span class="tag tag-danger">Denied</span></td>
-                          <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          <td>29</td>
-                          <td>29</td>
-                        </tr> -->
                     </tbody>
                   </table>
                 </div>
@@ -267,14 +231,15 @@
               <!-- /.input group -->
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Time</label>
-              <input type="text" class="form-control" id="Time" placeholder="hh:mm">
+              <label for="exampleInputEmail1">Start Time</label>
+              <input type="text" class="form-control" id="STime" placeholder="hh:mm">
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Duration(Hours)</label>
-              <input type="text" class="form-control" id="Duration" placeholder="hh:mm">
+              <label for="exampleInputEmail1">End Time</label>
+              <input type="text" class="form-control" id="ETime" placeholder="hh:mm">
             </div>
           </div>
+          <input type="text" class="form-control" id="TID" value="<?php echo $_SESSION['UserID']; ?>" hidden>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" onclick="CreateLecture()">Create</button>
@@ -286,14 +251,35 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script>
     function CreateLecture() {
-      var title = $("#foo")[0];
-      var date = $("#foo")[0];
-      var time = $("#foo")[0];
-      var duration = $("#foo")[0];
-      //Insert Here
+      var title = $("#Title")[0].value;
+      var date = $("#Date")[0].value;
+      var stime = $("#STime")[0].value;
+      var etime = $("#ETime")[0].value;
+      var teacherid = $("#TID")[0].value;
+      $.post("../Php/lectureCreate.php", {
+          title: title,
+          date: date,
+          stime: stime,
+          etime: etime,
+          teacherid: teacherid
+        })
+        .done(function(data) {
+          if (data == "TRUE") {
+            Swal.fire({
+              icon: 'success',
+              title: 'Lecture Has Been Created!',
+            }).then((result) => {
+              location.reload();
+             
+            })
 
+          } else {
+            alert("Failed!");
+          }
+        });
     }
   </script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
