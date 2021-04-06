@@ -19,6 +19,7 @@ session_start();
   <link rel="stylesheet" href="../css/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
+  
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -35,7 +36,7 @@ session_start();
           <a href="dashboard.php" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
+          <a href="contact.php" class="nav-link">Contact</a>
         </li>
       </ul>
 

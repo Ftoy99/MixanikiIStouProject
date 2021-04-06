@@ -2,7 +2,9 @@
 include_once('../Php/connect.php');
 session_start();
 ?>
-
+<head>
+<link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+</head>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -41,6 +43,12 @@ session_start();
                     <a href="students.php" class="nav-link">
                     <i class="nav-icon fa fa-graduation-cap"></i>
                     <p>Manage Students</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.php" class="nav-link">
+                    <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
+                    <p>Logout</p>
                     </a>
                 </li>
             </ul>

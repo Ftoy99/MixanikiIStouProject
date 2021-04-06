@@ -3,6 +3,9 @@ session_start();
 include_once '../Php/connect.php';
 $email = $_SESSION['email'];
 ?>
+<head>
+<link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+</head>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
