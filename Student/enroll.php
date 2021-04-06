@@ -115,35 +115,35 @@ session_start();
                       <?php                    
                       include_once('../Php/connect.php');
                       $date = date("Y/m/d");
-                      $sql = "SELECT * FROM lectures WHERE Date > $date";
+                      $sql = "SELECT * FROM lectures WHERE Date > '$date'";
                       $result = mysqli_query($con, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
                         $counter = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
-                          $timestart = date('g:ia', strtotime($row["TimeS"]));
-                          $timeend = date('g:ia', strtotime($row["TimeE"]));
-                          $date = date("d-m-Y", strtotime($row["Date"]));
-                          if (date("d-m-Y") > $date) {
-                            $Status = "Finished";
-                          } else {
-                            $current = $_SERVER["REQUEST_TIME"] + 60 * 60;
-                            $start = strtotime($row["TimeS"]);
-                            $end = strtotime($row["TimeE"]);
-                            if (date("d-m-Y") < $date) {
-                              $Status = "Pending";
+                            $timestart = date('g:ia', strtotime($row["TimeS"]));
+                            $timeend = date('g:ia', strtotime($row["TimeE"]));
+                            $date = date("d-m-Y", strtotime($row["Date"]));
+                            if (strtotime(date("d-m-Y")) > strtotime($date)) {
+                              $Status = "Finished";
                             } else {
-                              if ($current > $end) {
-                                $Status = "Finished";
+                              $current = $_SERVER["REQUEST_TIME"] + 60 * 60;
+                              $start = strtotime($row["TimeS"]);
+                              $end = strtotime($row["TimeE"]);
+                              if (date("d-m-Y") < $date) {
+                                $Status = "Pending";
                               } else {
-                                if ($current > $start) {
-                                  $Status = "Ongoing";
+                                if ($current > $end) {
+                                  $Status = "Finished";
                                 } else {
-                                  $Status = "Pending";
+                                  if ($current > $start) {
+                                    $Status = "Ongoing";
+                                  } else {
+                                    $Status = "Pending";
+                                  }
                                 }
                               }
                             }
-                          }
                           echo '
                           <tr>
                           <td><div data-value="' . $row["LectureID"] . '">' . $counter . '</div></td>
@@ -154,7 +154,7 @@ session_start();
                           <td>' . $Status . '</td>
                           <td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
-                              <button class="btn btn-primary onclick="enrollLecture(this.parentNode.parentNode.parentNode)"><i class="fas fa-plus"></i></button>
+                              <button class="btn btn-primary" onclick="enrollLecture(this.parentNode.parentNode.parentNode)"><i class="fas fa-plus"></i></button>
                             </div>
                           </td>
                         </tr>';
@@ -242,7 +242,11 @@ session_start();
   <script>
       function enrollLecture(row) {
       var id = row.childNodes[1].childNodes[0].getAttribute('data-value');
-      var title = row.childNodes[1].childNodes[1].getAttribute('data-value');
+      var title = row.cells[1].innerHTML;
+      var date = row.cells[2].innerHTML;
+      var timeStart = row.cells[3].innerHTML;
+      var timeEnd = row.cells[4].innerHTML;
+
       Swal.fire({
         title:'Enroll to lecture: ' + title,
         text: "You will enroll to participate this lecture. Once you do you need to contact the lecturer in case you have to miss the lecture for any reason.",
@@ -252,14 +256,17 @@ session_start();
         confirmButtonText: 'Confirm'
       }).then((result) => {
         if (result.isConfirmed) {
-          $.post("../Php/lectureDelete.php", {
+          $.post("../Php/enrollLecture.php", {
               id: id,
+              date: date,
+              timeStart: timeStart,
+              timeEnd: timeEnd
             })
             .done(function(data) {
               if (data == "TRUE") {
                 Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
+                  'Success!',
+                  'You have enrolled for the lecture.',
                   'success'
                 );
                 row.parentNode.removeChild(row);
