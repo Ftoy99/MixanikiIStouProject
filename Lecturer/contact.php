@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+include_once('../Php/connect.php')
 
 ?>
 
@@ -78,6 +79,34 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
+                        <!-- Cards go Here -->
+                        <div class="col-md-6">
+                            <div class="card card-primary">
+                                <!-- Title of Card -->
+                                <div class="card-header">
+                                    <h3 class="card-title">Ask A Question</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Title</label>
+                                        <input type="text" class="form-control" id="Title" placeholder="Quick Title Describing Your Problem.">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Textarea</label>
+                                        <textarea class="form-control" rows="3" placeholder="Ask Your Question Here As Detailed As Prossible." spellcheck="false" id="Description"></textarea>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                    <input value="<?php
+
+                                                    echo $_SESSION["UserID"]; ?>" id="id" hidden>
+                                    <button class="btn btn-primary" onclick="AskQuestion()">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header">
@@ -101,15 +130,37 @@
                             </div>
                             <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                        Dumb Question Title From Normie Ape
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <blockquote>
+                                        <p>Normie Question Description</p>
+                                        <small>Normie Ape</small>
+                                    </blockquote>
+                                    <blockquote class="quote-secondary">
+                                        <p>Detailed answer from chad admin .</p>
+                                        <small>Big D. Degenerate Chad</small>
+                                    </blockquote>
+
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
                     </div>
                 </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
+
+            </div>
         </div>
-        <!-- /.content -->
+
     </div>
-    <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -139,10 +190,48 @@
     <script src="../jss/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../jss/dist/js/adminlte.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         $(function() {
             $("#sidebar").load("sidebar.php");
         });
+    </script>
+    <script>
+        function AskQuestion() {
+            var title = $('#Title')[0].value;
+            var description = $('#Description')[0].value;
+            var id = $('#id')[0].value;
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This question will be send to the secretary.",
+                icon: 'warning',
+                showCancelButton: true,
+                reverseButtons: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirm'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post("../Php/questionCreate.php", {
+                            title: title,
+                            description: description,
+                            id: id
+                        })
+                        .done(function(data) {
+                            if (data == "TRUE") {
+                                Swal.fire({
+                                    title: 'Question Sent!',
+                                    description: 'Your Question Has Been Sent,It Will Be Answered Shortly!',
+                                    icon: 'success',
+                                }).then((result) => {
+                                    location.reload();
+                                })
+                            } else {
+                                alert(data);
+                            }
+                        });
+                }
+            });
+        }
     </script>
 </body>
 
