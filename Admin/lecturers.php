@@ -60,7 +60,7 @@ session_start();
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Students</h1>
+              <h1 class="m-0">Lecturers</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -80,7 +80,7 @@ session_start();
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Students</h3>
+                  <h3 class="card-title">Lecturers</h3>
 
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 200px;">
@@ -88,7 +88,7 @@ session_start();
                       <div class="input-group-append">
                         <button class="btn btn-default" onclick="Search()">
                           <i class="fas fa-search"></i>
-                        </button> 
+                        </button>                       
                       </div>
                     </div>
                   </div>
@@ -108,7 +108,7 @@ session_start();
                     <tbody>
                       <?php
                       include_once('../Php/connect.php');
-                      $result = mysqli_query($con, "SELECT * FROM accounts WHERE Type = 0");
+                      $result = mysqli_query($con, "SELECT * FROM accounts WHERE Type = 1");
                       $bool = mysqli_num_rows($result);
                       if($bool != 0) {
                         // output data of each row
@@ -197,7 +197,7 @@ session_start();
               <label>Permissions</label>
               <select class="form-control" id="permissions">
                 <option value=0>Student</option>
-                <option value=1>Lecturer</option>
+                <option selected="selected" value=1>Lecturer</option>
                 <option value=2>Secretary</option>
               </select>
             </div> 

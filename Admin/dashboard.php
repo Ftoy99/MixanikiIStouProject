@@ -83,7 +83,7 @@ include_once '../Php/connect.php';
                   </div>
                 <div class="card-body">
                   <p class="card-text">
-                    <a href="url">Manage Lecturers</a>     
+                    <a href="lecturers.php">Manage Lecturers</a>     
                   </p>
                   <p class="card-text">
                     <a href="students.php">Manage Students</a>
