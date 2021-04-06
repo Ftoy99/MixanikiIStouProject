@@ -18,7 +18,7 @@ $email = $_SESSION['email'];
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">
+                <a href="profile.php" class="d-block">
                     <?php
                         $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE Email = '$email'");
                         if($name_query)
