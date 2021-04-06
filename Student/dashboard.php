@@ -158,7 +158,7 @@
 <script src="../jss/dist/js/adminlte.min.js"></script>
 <script> 
   $(function(){
-    $("#sidebar").load("sidebar.html"); 
+    $("#sidebar").load("sidebar.php"); 
   });
   </script> 
 </body>
