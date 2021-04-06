@@ -12,14 +12,14 @@ session_start();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SRS - Lecturer</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../css/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -117,7 +117,7 @@ session_start();
                     <tbody>
                       <?php
                       include_once('../Php/connect.php');
-                      $sql = "SELECT * FROM lectures";
+                      $sql = 'SELECT * FROM lectures WHERE Lecturer="'.$_SESSION["UserID"].'"';
                       $result = mysqli_query($con, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
@@ -132,13 +132,17 @@ session_start();
                             $current = $_SERVER["REQUEST_TIME"] + 60 * 60;
                             $start = strtotime($row["TimeS"]);
                             $end = strtotime($row["TimeE"]);
-                            if ($current > $end) {
+                            if (date("d-m-Y") < $date) {
                               $Status = "Pending";
                             } else {
-                              if ($current > $start) {
-                                $Status = "Ongoing";
+                              if ($current > $end) {
+                                $Status = "Finished";
                               } else {
-                                $Status = "Pending";
+                                if ($current > $start) {
+                                  $Status = "Ongoing";
+                                } else {
+                                  $Status = "Pending";
+                                }
                               }
                             }
                           }
@@ -153,8 +157,8 @@ session_start();
                           <td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
                               <button class="btn btn-primary" onclick=""><i class="fas fa-eye"></i></button>
-                              <button class="btn btn-info" onclick="CreateLectureModal(this);"><i class="fas fa-cog"></i></button>
-                              <button class="btn btn-danger" onclick="DeleteLecture(this.parentNode.parentNode.parentNode);"><i class="fas fa-trash"></i></button>
+                              <button class="btn btn-info" onclick="EditLectureModal(this.parentNode.parentNode.parentNode)"data-toggle="modal" data-target="#MEditLecture"><i class="fas fa-cog"></i></button>
+                              <button class="btn btn-danger" onclick="DeleteLecture(this.parentNode.parentNode.parentNode)"><i class="fas fa-trash"></i></button>
                             </div>
                           </td>
                         </tr>';
@@ -254,7 +258,50 @@ session_start();
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="MEditLecture">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit User Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Title</label>
+              <input type="text" class="form-control" id="eTitle" placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label>Date:</label>
+              <input type="text" class="form-control" id="eDate" placeholder="dd/mm/yyyy">
+
+              <!-- /.input group -->
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Start Time</label>
+              <input type="text" class="form-control" id="eSTime" placeholder="hh:mm">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">End Time</label>
+              <input type="text" class="form-control" id="eETime" placeholder="hh:mm">
+              <input id="eID" hidden>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" onclick="" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="UpdateLecture()">Save</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
   <script>
     function CreateLecture() {
       var title = $("#Title")[0].value;
@@ -317,41 +364,81 @@ session_start();
                   'success'
                 );
                 row.parentNode.removeChild(row);
-              
-              }else{
+
+              } else {
                 alert(data);
               }
             });
         }
       });
     }
-  </script>
-  <script>
-  function Search(){
-// Declare variables
-var input, filter, table, tr, td, i ;
-input = document.getElementById("SearchField");
-filter = input.value.toUpperCase();
-table = document.getElementById("LecturesTable");
-tr = table.getElementsByTagName("tr"),
-th = table.getElementsByTagName("th");
 
-// Loop through all table rows, and hide those who don't match the        search query
-for (i = 1; i < tr.length; i++) {
-            tr[i].style.display = "none";
-            for(var j=0; j<th.length; j++){
-        td = tr[i].getElementsByTagName("td")[j];      
-        if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1)                               {
-                tr[i].style.display = "";
-                break;
+    function Search() {
+      // Declare variables
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("SearchField");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("LecturesTable");
+      tr = table.getElementsByTagName("tr"),
+        th = table.getElementsByTagName("th");
+
+      // Loop through all table rows, and hide those who don't match the        search query
+      for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        for (var j = 0; j < th.length; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+              tr[i].style.display = "";
+              break;
             }
+          }
         }
-    }
-}
+      }
 
-input.value="";
-  }
+      input.value = "";
+    }
+
+    function EditLectureModal(table){
+      $("#eTitle")[0].value= table.cells[1].innerHTML;
+      $("#eDate")[0].value= table.cells[2].innerHTML;
+      $("#eSTime")[0].value= table.cells[3].innerHTML;
+      $("#eETime")[0].value= table.cells[4].innerHTML;
+      $("#eID")[0].value = table.childNodes[1].childNodes[0].getAttribute('data-value');
+    }
+
+    function UpdateLecture(){
+      var title = $("#eTitle")[0].value;
+      var date = $("#eDate")[0].value;
+      var stime = $("#eSTime")[0].value;
+      var etime = $("#eETime")[0].value;
+      var id = $("#eID")[0].value;
+      
+      $.post("../Php/lectureUpdate.php", {
+          id:id,
+          title: title,
+          date: date,
+          stime: stime,
+          etime: etime,
+        })
+        .done(function(data) {
+          if (data == "TRUE") {
+            Swal.fire({
+              icon: 'success',
+              title: 'Lecture Has Been Updated!',
+            }).then((result) => {
+              location.reload();
+
+            })
+
+          } else {
+            alert("Failed!");
+            alert(data);
+          }
+        });
+    }
+
+
   </script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
