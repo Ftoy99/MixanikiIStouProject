@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+include_once('../Php/connect.php');
 
 ?>
 
@@ -98,12 +99,23 @@
                       <h3 class="card-title">Upcoming Lectures</h3>
                     </div>
                   <div class="card-body">
-                    <p class="card-text">
+                    <?php
+                    $sql='SELECT * FROM `lectures` WHERE `Date`>="'.date('Y-m-d').'" AND `Lecturer`="'.$_SESSION["UserID"].'";';
+                    if($result=mysqli_query($con,$sql)){
+                      while($row=mysqli_fetch_assoc($result)){
+                        echo'<p class="card-text">
+                        <a href="students.php?lecture='.$row["LectureID"].'">'.$row["Title"].'</a>
+                    </p>';
+                      }
+                    }
+                    
+                    ?>
+                    <!-- <p class="card-text">
                         <a href="url">Mock Link</a>
                     </p>
                     <p class="card-text">
                         <a href="url">Mock Link</a>
-                    </p>
+                    </p> -->
                   </div>
                 </div>
               </div>
