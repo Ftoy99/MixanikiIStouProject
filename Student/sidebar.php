@@ -1,4 +1,7 @@
 <?php
+session_start();
+include_once '../Php/connect.php';
+$email = $_SESSION['email'];
 ?>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -12,7 +15,19 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">Student Name</a>
+                <a href="profile.php" class="d-block">
+                    <?php
+                        $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE Email = '$email'");
+                        if($name_query)
+                        {
+                            while($rows = mysqli_fetch_assoc($name_query))
+                            {
+                                $name = $rows['Name'];  
+                                echo $name;
+                            }
+                        }
+                    ?>
+                </a>
             </div>
         </div>
 
@@ -22,31 +37,25 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="dashboard.php" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>Dashboard</p>
                     </a>
-                </li>
+                </li>              
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-university"></i>
-                    <p>My profile</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="lectures.php" class="nav-link">
                     <i class="nav-icon fa fa-graduation-cap"></i>
                     <p>My Lectures</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="enroll.php" class="nav-link">
                     <i class="nav-icon fa fa-book"></i>
-                    <p>Enrol to a lecture.</p>
+                    <p>Enroll to a lecture</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="contact.php" class="nav-link">
                     <i class="nav-icon fa fa-question" aria-hidden="true"></i>
                     <p>Contact</p>
                     </a>

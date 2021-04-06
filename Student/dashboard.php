@@ -1,3 +1,7 @@
+<?php
+session_start();
+include_once('../Php/connect.php'); 
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -59,7 +63,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
@@ -75,15 +79,20 @@
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">My Lectures</h3>
+                    <h3 class="card-title">Upcoming Lectures</h3>
                   </div>
                 <div class="card-body">
-                  <p class="card-text">
-                    <a href="url">Lecture 1</a>     
-                  </p>
-                  <p class="card-text">
-                    <a href="url">Lecture 2</a>
-                  </p>
+                <?php
+                    $sql='SELECT * FROM `lectures` WHERE `Date`>="'.date('Y-m-d').'" AND `Lecturer`="'.$_SESSION["UserID"].'";';
+                    if($result=mysqli_query($con,$sql)){
+                      while($row=mysqli_fetch_assoc($result)){
+                        echo'<p class="card-text">
+                        <a href="lectures.php?lecture='.$row["LectureID"].'">'.$row["Title"].'</a>
+                    </p>';
+                      }
+                    }
+                    
+                    ?>
                 </div>
               </div>
             </div>
@@ -109,12 +118,9 @@
                 <div class="card-header">
                     <h3 class="card-title">Contact Us</h3>
                   </div>
-                <div class="card-body">
+                <div class="card-body">                
                   <p class="card-text">
-                    <a href="url">FAQ</a>     
-                  </p>
-                  <p class="card-text">
-                    <a href="url">Queries</a>
+                    <a href="contact.php">Queries</a>
                   </p>
                 </div>
               </div>

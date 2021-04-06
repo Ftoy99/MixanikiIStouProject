@@ -94,6 +94,7 @@ session_start();
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result))
                     {
+                        $id = $row["AccountID"];
                         $name = $row["Name"];
                         switch($row["Type"]) {
                             case 0: 
