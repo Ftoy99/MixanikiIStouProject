@@ -99,7 +99,7 @@ include_once '../Php/connect.php';
                     </div>
                   <div class="card-body">
                     <p class="card-text">
-                        <a href="url">Lectures</a>
+                        <a href="lectures.php">Lectures</a>
                     </p>
                   </div>
                 </div>
@@ -113,12 +113,9 @@ include_once '../Php/connect.php';
                 <div class="card-header">
                     <h3 class="card-title">Contact Us</h3>
                   </div>
-                <div class="card-body">
+                <div class="card-body">                 
                   <p class="card-text">
-                    <a href="url">FAQ</a>     
-                  </p>
-                  <p class="card-text">
-                    <a href="url">Queries</a>
+                    <a href="contact.php">Queries</a>
                   </p>
                 </div>
               </div>

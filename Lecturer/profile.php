@@ -10,7 +10,7 @@ session_start();
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SRS - Admin</title>
+  <title>SRS - Lecturer</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -94,6 +94,7 @@ session_start();
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result))
                     {
+                        $id = $row["AccountID"];
                         $name = $row["Name"];
                         switch($row["Type"]) {
                             case 0: 
@@ -119,11 +120,11 @@ session_start();
                   <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" value="<?php echo $name ?>">
-                  </div> 
+                  </div>  
                   <div class="form-group" hidden>
                     <label for="name">ID</label>
                     <input type="text" class="form-control" id="id" value="<?php echo $id ?>">
-                  </div>                                  
+                  </div>                                 
                   <div class="form-group">
                     <label for="name">Password</label>
                     <div class="input-group" id="password">              
@@ -144,16 +145,37 @@ session_start();
             </div>
           <!--/.col (right) -->
           <div class="col-md-6">
-          <!-- Profile Image -->
-          <div class="card card-primary card-outline">
-              <div class="card-body color-palette-box">
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+                <div class="card-body color-palette-box">
 
-                <h3 class="profile-username text-center"><?php echo $name ?></h3>
+                    <h3 class="profile-username text-center"><?php echo $name ?></h3>
 
-                <p class="text-muted text-center"><?php echo $type ?></p>               
-              <!-- /.card-body -->
+                    <p class="text-muted text-center"><?php echo $type ?></p>
+
+                    <p class="text text-center">Lecture History</p>
+
+                    <ul class="list-group list-group-unbordered mb-3">
+                    <?php
+                        $date = date('Y-m-d');
+                        $query = "SELECT * FROM lectures WHERE (Date < '$date' AND Lecturer = '$id') ORDER BY Date DESC LIMIT 10";
+                        $res = mysqli_query($con,$query);
+                        if (mysqli_num_rows($result) > 0) {                          
+                            while($rows=mysqli_fetch_assoc($res))
+                            {
+                                echo '  
+                                    <li class="list-group-item">
+                                    <b>' . $rows["Title"] . '</b>
+                                    </li>  
+                                    ';                             
+                            }
+                        }
+
+                    ?>
+                    </ul>
+                <!-- /.card-body -->
+                </div>
             </div>
-</div>
             <!-- /.card -->
         </div>
         <!-- /.row -->
@@ -204,7 +226,7 @@ session_start();
       $("#sidebar").load("sidebar.php");
     });
   </script>
-   <script>
+  <script>
       function editMyDetails()
       {
         var id = $("#id")[0].value;
