@@ -11,7 +11,7 @@ include_once('../Php/connect.php')
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SRS - Lecturer</title>
+    <title>SRS - Contact</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -80,68 +80,16 @@ include_once('../Php/connect.php')
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Cards go Here -->
-                        <!-- This is the form to submit -->
-                        <div class="col-md-6">
-                            <div class="card card-primary">
-                                <!-- Title of Card -->
-                                <div class="card-header">
-                                    <h3 class="card-title">Ask A Question</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Title</label>
-                                        <input type="text" class="form-control" id="Title" placeholder="Quick Title Describing Your Problem.">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Textarea</label>
-                                        <textarea class="form-control" rows="3" placeholder="Ask Your Question Here As Detailed As Prossible." spellcheck="false" id="Description"></textarea>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="card-footer">
-                                    <input value="<?php
 
-                                                    echo $_SESSION["UserID"]; ?>" id="id" hidden>
-                                    <button class="btn btn-primary" onclick="AskQuestion()">Submit</button>
-                                </div>
-                            </div>
-                        </div>
                         <?php
                         include_once('../Php/connect.php');
-                        $sql = 'SELECT * FROM `questions` WHERE `AskedBy` = ' . $_SESSION["UserID"] . ';';
+                        $sql = 'SELECT * FROM `questions` WHERE `AnsweredBy` = "0";';
                         if ($result = mysqli_query($con, $sql)) {
-                            $result2 = mysqli_query($con, 'SELECT `Name` from `Accounts` WHERE `AccountID`=' . $_SESSION["UserID"] . ';');
-                            $name = mysqli_fetch_assoc($result2)["Name"];
                             while ($row = mysqli_fetch_assoc($result)) {
-                                if ($row["AnsweredBy"] != "0") {
-                                    $result3 = mysqli_query($con, 'SELECT `Name` from `Accounts` WHERE `AccountID`="' . $row["AnsweredBy"] . '";');
-                                    $name2 = mysqli_fetch_assoc($result3)["Name"];
-                                    echo '
+                                $result2 = mysqli_query($con, 'SELECT `Name` from `Accounts` WHERE `AccountID`="' . $row["AskedBy"] . '";');
+                                $name2 = mysqli_fetch_assoc($result2)["Name"];
+                                echo '
                                 <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">
-                                            <i class="fa fa-check" aria-hidden="true"></i>
-                                            ' . $row["Title"] . '
-                                        </h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <blockquote>
-                                            <p>' . $row["Description"] . '</p>
-                                            <small>' . $name . '</small>
-                                        </blockquote>
-                                        <blockquote class="quote-secondary">
-                                            <p>' . $row["Answer"] . '</p>
-                                            <small>' . $name2 . '</small>
-                                        </blockquote>
-    
-                                    </div>
-                                </div>
-                            </div>
-                                ';
-                                }else{
-                                    echo '
-                                    <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title">
@@ -152,15 +100,15 @@ include_once('../Php/connect.php')
                                         <div class="card-body">
                                             <blockquote>
                                                 <p>' . $row["Description"] . '</p>
-                                                <small>' . $name . '</small>
+                                                <small>' . $name2 . '</small>
                                             </blockquote>
                                         </div>
+                                        <textarea class="form-control" rows="3" placeholder="Enter ..." spellcheck="false" value=""></textarea>
+                                        <input value="'.$row["QuestionID"].'" hidden></input>
+                                        <button class="btn btn-primary" onclick="AnswerQuestion(this.parentNode)">Submit Answer</button>
                                     </div>
                                 </div>
-                                    ';
-
-                                }
-
+                                ';
                             }
                         }
 
@@ -208,13 +156,14 @@ include_once('../Php/connect.php')
         });
     </script>
     <script>
-        function AskQuestion() {
-            var title = $('#Title')[0].value;
-            var description = $('#Description')[0].value;
-            var id = $('#id')[0].value;
+        function AnswerQuestion(question) {
+            var answer = question.getElementsByTagName("textarea")[0].value;
+            
+            var id = question.getElementsByTagName("input")[0].value;
+            alert(id);
             Swal.fire({
                 title: 'Are you sure?',
-                text: "This question will be send to the secretary.",
+                text: "This answer will be send to the user.",
                 icon: 'warning',
                 showCancelButton: true,
                 reverseButtons: true,
@@ -222,16 +171,15 @@ include_once('../Php/connect.php')
                 confirmButtonText: 'Confirm'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.post("../Php/questionCreate.php", {
-                            title: title,
-                            description: description,
+                    $.post("../Php/questionAnswer.php", {
+                            answer:answer,
                             id: id
                         })
                         .done(function(data) {
                             if (data == "TRUE") {
                                 Swal.fire({
-                                    title: 'Question Sent!',
-                                    description: 'Your Question Has Been Sent,It Will Be Answered Shortly!',
+                                    title: 'Answer Sent!',
+                                    description: 'Answer Sent Question Was Removed From Your Queue.',
                                     icon: 'success',
                                 }).then((result) => {
                                     location.reload();
