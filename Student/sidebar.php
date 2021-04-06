@@ -3,6 +3,9 @@ session_start();
 include_once '../Php/connect.php';
 $email = $_SESSION['email'];
 ?>
+<head>
+<link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+</head>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -58,6 +61,12 @@ $email = $_SESSION['email'];
                     <a href="contact.php" class="nav-link">
                     <i class="nav-icon fa fa-question" aria-hidden="true"></i>
                     <p>Contact</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.php" class="nav-link">
+                    <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
+                    <p>Logout</p>
                     </a>
                 </li>
             </ul>

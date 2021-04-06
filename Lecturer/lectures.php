@@ -126,7 +126,7 @@ session_start();
                           $timestart = date('g:ia', strtotime($row["TimeS"]));
                           $timeend = date('g:ia', strtotime($row["TimeE"]));
                           $date = date("d-m-Y", strtotime($row["Date"]));
-                          if (date("d-m-Y") > $date) {
+                          if (strtotime(date("d-m-Y")) > strtotime($date)) {
                             $Status = "Finished";
                           } else {
                             $current = $_SERVER["REQUEST_TIME"] + 60 * 60;
@@ -233,7 +233,7 @@ session_start();
             </div>
             <div class="form-group">
               <label>Date:</label>
-              <input type="text" class="form-control" id="Date" placeholder="dd/mm/yyyy">
+              <input type="text" class="form-control" id="Date" placeholder="dd-mm-yyyy">
 
               <!-- /.input group -->
             </div>
