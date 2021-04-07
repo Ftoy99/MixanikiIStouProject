@@ -156,7 +156,6 @@ session_start();
                           <td>' . $Status . '</td>
                           <td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
-                              <button class="btn btn-primary" onclick=""><i class="fas fa-eye"></i></button>
                               <button class="btn btn-info" onclick="EditLectureModal(this.parentNode.parentNode.parentNode)"data-toggle="modal" data-target="#MEditLecture"><i class="fas fa-cog"></i></button>
                               <button class="btn btn-danger" onclick="DeleteLecture(this.parentNode.parentNode.parentNode)"><i class="fas fa-trash"></i></button>
                             </div>

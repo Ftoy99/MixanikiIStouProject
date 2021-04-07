@@ -1,0 +1,34 @@
+<?php
+include_once('connect.php');
+session_start();
+
+$pass = $_POST["pass"];
+$new = $_POST["newpass"];
+$user = $_SESSION["UserID"];
+
+if($row=mysqli_fetch_assoc(mysqli_query($con,'SELECT * FROM `accounts` WHERE `AccountID`="'.$user.'"'))){
+if ($row["Password"]==hash("sha256", $pass)){
+    $new = hash("sha256", $new);
+    $sql = 'UPDATE `accounts` SET `Password`="'.$new.'" WHERE `AccountID`="'.$user.'";';
+    if (mysqli_query($con,$sql)){
+        echo "1";
+    }else{
+        echo $sql;
+    }
+
+}else {
+    echo 2;
+}
+}else{
+    echo "SQL 1 PROBLEM";
+}
+
+
+
+
+
+
+
+
+
+

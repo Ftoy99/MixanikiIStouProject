@@ -18,7 +18,7 @@ session_start();
   <link rel="stylesheet" href="../css/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -77,119 +77,174 @@ session_start();
 
       <!-- Main content -->
       <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">My Details</h3>
-              </div>
-              <!-- /.card-header -->
-              <?php
+        <div class="container-fluid">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+              <!-- general form elements -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">My Details</h3>
+                </div>
+                <!-- /.card-header -->
+                <?php
                 $email = $_SESSION['email'];
                 $sql = "SELECT * FROM accounts WHERE Email = '$email'";
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result))
-                    {
-                        $id = $row["AccountID"];
-                        $name = $row["Name"];
-                        switch($row["Type"]) {
-                            case 0: 
-                                $type = "Student";
-                                break;
-                            case 1: 
-                                $type = "Lecturer";
-                                break;
-                            case 2: 
-                                $type = "Secretary";
-                                break;
-                        }
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row["AccountID"];
+                    $name = $row["Name"];
+                    switch ($row["Type"]) {
+                      case 0:
+                        $type = "Student";
+                        break;
+                      case 1:
+                        $type = "Lecturer";
+                        break;
+                      case 2:
+                        $type = "Secretary";
+                        break;
                     }
+                  }
                 }
-              ?>
-              <!-- form start -->
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" value="<?php echo $email ?>" readonly>
+                ?>
+                <!-- form start -->
+                <form>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" id="email" value="<?php echo $email ?>" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" id="name" value="<?php echo $name ?>">
+                    </div>
+                    <div class="form-group" hidden>
+                      <label for="name">ID</label>
+                      <input type="text" class="form-control" id="id" value="<?php echo $id ?>">
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" value="<?php echo $name ?>">
-                  </div>  
-                  <div class="form-group" hidden>
-                    <label for="name">ID</label>
-                    <input type="text" class="form-control" id="id" value="<?php echo $id ?>">
-                  </div>                                 
-                  <div class="form-group">
-                    <label for="name">Password</label>
-                    <div class="input-group" id="password">              
-                        <input type="password" class="form-control" id="passInput" placeholder="Change password here">
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-info btn-flat" onclick="passwordVisibility()">Show/Hide Password</button>
-                        </span>
-                    </div>   
-                  </div>                                                                 
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  <button type="button" class="btn btn-primary" onclick="editMyDetails()">Confirm</button>
-                </div>
-              </form>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="button" class="btn btn-primary" onclick="editMyDetails()">Confirm</button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
             </div>
-            <!-- /.card -->
-            </div>
-          <!--/.col (right) -->
-          <div class="col-md-6">
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
+            <!--/.col (right) -->
+            <div class="col-md-6">
+              <!-- Profile Image -->
+              <div class="card card-primary card-outline">
                 <div class="card-body color-palette-box">
 
-                    <h3 class="profile-username text-center"><?php echo $name ?></h3>
+                  <h3 class="profile-username text-center"><?php echo $name ?></h3>
 
-                    <p class="text-muted text-center"><?php echo $type ?></p>
+                  <p class="text-muted text-center"><?php echo $type ?></p>
 
-                    <p class="text text-center">Lecture History</p>
+                  <p class="text text-center">Lecture History</p>
 
-                    <ul class="list-group list-group-unbordered mb-3">
+                  <ul class="list-group list-group-unbordered mb-3">
                     <?php
-                        $date = date('Y-m-d');
-                        $query = "SELECT * FROM `participations` JOIN lectures on participations.LectureID=lectures.LectureID WHERE (Date < '$date' AND AccountID=".$_SESSION["UserID"].") ORDER BY Date DESC LIMIT 10";
-                        $res = mysqli_query($con,$query);
-                        if (mysqli_num_rows($result) > 0) {                          
-                            while($rows=mysqli_fetch_assoc($res))
-                            {
-                                echo '  
+                    $date = date('Y-m-d');
+                    $query = "SELECT * FROM `participations` JOIN lectures on participations.LectureID=lectures.LectureID WHERE (Date < '$date' AND AccountID=" . $_SESSION["UserID"] . ") ORDER BY Date DESC LIMIT 10";
+                    $res = mysqli_query($con, $query);
+                    if (mysqli_num_rows($result) > 0) {
+                      while ($rows = mysqli_fetch_assoc($res)) {
+                        echo '  
                                     <li class="list-group-item">
                                     <b>' . $rows["Title"] . '</b>
                                     </li>  
-                                    ';                             
-                            }
-                        }
+                                    ';
+                      }
+                    }
 
                     ?>
-                    </ul>
-                <!-- /.card-body -->
+                  </ul>
+                  <!-- /.card-body -->
                 </div>
+              </div>
+              <!-- /.card -->
             </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.1.0-rc
+            <div class="col-md-6">
+              <!-- general form elements -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Password Change</h3>
+                </div>
+                <!-- /.card-header -->
+                <?php
+                $email = $_SESSION['email'];
+                $sql = "SELECT * FROM accounts WHERE Email = '$email'";
+                $result = mysqli_query($con, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row["AccountID"];
+                    $name = $row["Name"];
+                    switch ($row["Type"]) {
+                      case 0:
+                        $type = "Student";
+                        break;
+                      case 1:
+                        $type = "Lecturer";
+                        break;
+                      case 2:
+                        $type = "Secretary";
+                        break;
+                    }
+                  }
+                }
+                ?>
+                <!-- form start -->
+                <form>
+                  <div class="card-body">
+                  <div class="form-group">
+                    <label id="warning" style="color:red;visibility: hidden;" >Passwords Entered Dont match</label>
+                    </div>
+                    <div class="form-group">
+                    <label id="warning">Passwords Entered Dont match</label>
+                      <label for="name">Current Password</label>
+                      <div class="input-group" id="password">
+                        <input type="password" class="form-control" id="passInput1" placeholder="Change password here">
+                        <span class="input-group-append">
+                          <button type="button" class="btn btn-info btn-flat" onclick="passwordVisibility(1)">Show/Hide Password</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="name">New Password</label>
+                      <div class="input-group" id="password">
+                        <input type="password" class="form-control" id="passInput3" placeholder="Change password here">
+                        <span class="input-group-append">
+                          <button type="button" class="btn btn-info btn-flat" onclick="passwordVisibility(3)">Show/Hide Password</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="button" class="btn btn-primary" onclick="passwordSwap()">Confirm</button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
+            </div>
+            <!--/.col (right) -->
+
+
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
     </div>
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+        <b>Version</b> 3.1.0-rc
+      </div>
+
+    </footer>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -207,8 +262,7 @@ session_start();
     <div class="float-right d-none d-sm-inline">
       Anything you want
     </div> -->
-      <!-- Default to the left
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. -->
+
     </footer>
   </div>
   <!-- ./wrapper -->
@@ -227,13 +281,12 @@ session_start();
     });
   </script>
   <script>
-      function editMyDetails()
-      {
-        var id = $("#id")[0].value;
-        var name = $("#name")[0].value;
-        var email = $("#email")[0].value;
-        
-        $.post("../Php/detailsEdit.php", {
+    function editMyDetails() {
+      var id = $("#id")[0].value;
+      var name = $("#name")[0].value;
+      var email = $("#email")[0].value;
+
+      $.post("../Php/detailsEdit.php", {
           id: id,
           name: name,
           email: email,
@@ -244,29 +297,58 @@ session_start();
               icon: 'success',
               title: 'User updated successfully!',
             }).then((result) => {
-              location.reload();             
+              location.reload();
             })
 
           } else {
             alert("Failed!");
           }
         });
-      }
+    }
   </script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script>
-      function passwordVisibility() {
-        var x = document.getElementById("passInput");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
+    function passwordVisibility(x) {
+      if (x == 1) {
+        var x = document.getElementById("passInput1");
+      }
+      if (x == 3) {
+        var x = document.getElementById("passInput3");
+      }
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
     }
-    </script>
+
+    function passwordSwap() {
+      var pass1 = document.getElementById("passInput1").value;
+      var pass3 = document.getElementById("passInput3").value;
+        $.post("../Php/changePass.php", {
+            pass: pass1,
+            newpass: pass3
+          })
+          .done(function(data) {
+            if (data == 1) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Password Changed successfully!'
+              }).then((result) => {
+                location.reload();
+              })
+
+            }
+            if (data == 2) {
+              var x = document.getElementById("warning");
+              x.style.visibility = "visible";
+            }
+          });
+      }
+  </script>
 </body>
 
 </html>
