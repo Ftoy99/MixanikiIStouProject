@@ -116,7 +116,7 @@ session_start();
                   <div class="card-body">
                     <div class="form-group">
                       <label for="email">Email address</label>
-                      <input type="email" class="form-control" id="email" value="<?php echo $email ?>">
+                      <input type="email" class="form-control" id="email" value="<?php echo $email ?>" readonly>
                     </div>
                     <div class="form-group">
                       <label for="name">Name</label>

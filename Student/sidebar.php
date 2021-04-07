@@ -54,7 +54,7 @@ $email = $_SESSION['email'];
                 <li class="nav-item">
                     <a href="enroll.php" class="nav-link">
                     <i class="nav-icon fa fa-book"></i>
-                    <p>Enroll to a lecture</p>
+                    <p>Enroll to a Lecture</p>
                     </a>
                 </li>
                 <li class="nav-item">
