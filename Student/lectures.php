@@ -64,7 +64,7 @@ include_once('../Php/connect.php');
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item active">My Lectures</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -112,7 +112,7 @@ include_once('../Php/connect.php');
                     <tbody>
                       <?php
                       include_once('../Php/connect.php');
-                      $sql = 'SELECT * FROM `participations` join lectures on participations.LectureID=lectures.LectureID where Date>"'.date('Y-m-d').'" AND AccountID="'.$_SESSION["UserID"].'";';
+                      $sql = 'SELECT * FROM `participations` join lectures on participations.LectureID=lectures.LectureID where Date>="'.date('Y-m-d').'" AND AccountID="'.$_SESSION["UserID"].'";';
                       $result = mysqli_query($con, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
@@ -129,7 +129,7 @@ include_once('../Php/connect.php');
                           <td>' . $date . '</td>
                           <td>' . $timestart . '</td>
                           <td>' . $timeend . '</td>
-                        </tr>';
+                          </tr>';
                           $counter++;
                         }
                       }
@@ -140,6 +140,7 @@ include_once('../Php/connect.php');
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
+            </div>
             </div>
         </div><!-- /.container-fluid -->
       </div>

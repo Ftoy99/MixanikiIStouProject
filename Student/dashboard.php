@@ -83,36 +83,19 @@ include_once('../Php/connect.php');
                   </div>
                 <div class="card-body">
                 <?php
-                    $sql='SELECT * FROM `lectures` WHERE `Date`>="'.date('Y-m-d').'" AND `Lecturer`="'.$_SESSION["UserID"].'";';
+                    $sql='SELECT * FROM `participations` NATURAL JOIN `lectures` WHERE `Date`>="'.date('Y-m-d').'" AND `AccountID`="'.$_SESSION["UserID"].'";';
                     if($result=mysqli_query($con,$sql)){
                       while($row=mysqli_fetch_assoc($result)){
                         echo'<p class="card-text">
                         <a href="lectures.php?lecture='.$row["LectureID"].'">'.$row["Title"].'</a>
                     </p>';
                       }
-                    }
-                    
+                    }  
                     ?>
                 </div>
               </div>
             </div>
             <!-- /.col-md-6 -->
-            <div class="col-lg-6">
-                <div class="card">
-                  <div class="card-header">
-                      <h3 class="card-title">Assignments</h3>
-                    </div>
-                  <div class="card-body">
-                    <p class="card-text">
-                        <a href="url">Assignment 3</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            <!-- /.col-md-6 -->
-          </div>
-          <!-- /.row -->
-          <div class = "row">
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-header">
@@ -125,7 +108,9 @@ include_once('../Php/connect.php');
                 </div>
               </div>
             </div>
+            <!-- /.col-md-6 -->
           </div>
+          <!-- /.row -->       
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->
