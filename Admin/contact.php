@@ -160,7 +160,7 @@ include_once('../Php/connect.php')
             var answer = question.getElementsByTagName("textarea")[0].value;
             
             var id = question.getElementsByTagName("input")[0].value;
-            alert(id);
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: "This answer will be send to the user.",
@@ -185,7 +185,7 @@ include_once('../Php/connect.php')
                                     location.reload();
                                 })
                             } else {
-                                alert(data);
+
                             }
                         });
                 }
