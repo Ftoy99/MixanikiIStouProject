@@ -78,22 +78,6 @@ include_once('../Php/connect.php');
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-6">
-              <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Something Here</h3>
-                  </div>
-                <div class="card-body">
-                  <p class="card-text">
-                    <a href="url">Mock Link</a>     
-                  </p>
-                  <p class="card-text">
-                    <a href="url">Mock Link</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <!-- /.col-md-6 -->
-            <div class="col-lg-6">
                 <div class="card">
                   <div class="card-header">
                       <h3 class="card-title">Upcoming Lectures</h3>
@@ -120,7 +104,20 @@ include_once('../Php/connect.php');
                 </div>
               </div>
             <!-- /.col-md-6 -->
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Contact Us</h3>
+                  </div>
+                <div class="card-body">                
+                  <p class="card-text">
+                    <a href="contact.php">Queries</a>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+          <!-- /.col-md-6 -->
           <!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
