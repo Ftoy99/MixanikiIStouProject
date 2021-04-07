@@ -181,11 +181,7 @@ session_start();
                 <!-- form start -->
                 <form>
                   <div class="card-body">
-                  <div class="form-group">
-                    <label id="warning" style="color:red;visibility: hidden;" >Passwords Entered Dont match</label>
-                    </div>
                     <div class="form-group">
-                    <label id="warning">Passwords Entered Dont match</label>
                       <label for="name">Current Password</label>
                       <div class="input-group" id="password">
                         <input type="password" class="form-control" id="passInput1" placeholder="Change password here">
@@ -212,7 +208,7 @@ session_start();
               </div>
               <!-- /.card -->
             </div>
-        <!-- /.row -->
+            <!-- /.row -->
             <!-- /.row -->
           </div><!-- /.container-fluid -->
       </section>
@@ -309,25 +305,43 @@ session_start();
     function passwordSwap() {
       var pass1 = document.getElementById("passInput1").value;
       var pass3 = document.getElementById("passInput3").value;
-      $.post("../Php/changePass.php", {
-          pass: pass1,
-          newpass: pass3
-        })
-        .done(function(data) {
-          if (data == 1) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Password Changed successfully!'
-            }).then((result) => {
-              location.reload();
-            })
+      if (pass1 != "") {
+        $.post("../Php/changePass.php", {
+            pass: pass1,
+            newpass: pass3
+          })
+          .done(function(data) {
+            if (data == 1) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Password Changed successfully!'
+              }).then((result) => {
+                location.reload();
+              })
 
-          }
-          if (data == 2) {
-            var x = document.getElementById("warning");
-            x.style.visibility = "visible";
-          }
-        });
+            }
+            if (data == 2) {
+              Swal.fire(
+                'Error.',
+                "Passwords Don't Match.",
+                'error',
+              );
+            }
+            if (data == 3) {
+              Swal.fire(
+                'Error.',
+                "Password Can't Be Empty.",
+                'error',
+              );
+            }
+          });
+      } else {
+        Swal.fire(
+          'Error.',
+          "Password Can't Be Empty.",
+          'error',
+        );
+      }
     }
   </script>
 </body>

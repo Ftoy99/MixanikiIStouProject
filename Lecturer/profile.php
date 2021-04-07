@@ -18,7 +18,7 @@ session_start();
   <link rel="stylesheet" href="../css/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -77,99 +77,97 @@ session_start();
 
       <!-- Main content -->
       <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">My Details</h3>
-              </div>
-              <!-- /.card-header -->
-              <?php
+        <div class="container-fluid">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+              <!-- general form elements -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">My Details</h3>
+                </div>
+                <!-- /.card-header -->
+                <?php
                 $email = $_SESSION['email'];
                 $sql = "SELECT * FROM accounts WHERE Email = '$email'";
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result))
-                    {
-                        $id = $row["AccountID"];
-                        $name = $row["Name"];
-                        switch($row["Type"]) {
-                            case 0: 
-                                $type = "Student";
-                                break;
-                            case 1: 
-                                $type = "Lecturer";
-                                break;
-                            case 2: 
-                                $type = "Secretary";
-                                break;
-                        }
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row["AccountID"];
+                    $name = $row["Name"];
+                    switch ($row["Type"]) {
+                      case 0:
+                        $type = "Student";
+                        break;
+                      case 1:
+                        $type = "Lecturer";
+                        break;
+                      case 2:
+                        $type = "Secretary";
+                        break;
                     }
+                  }
                 }
-              ?>
-              <!-- form start -->
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" value="<?php echo $email ?>">
+                ?>
+                <!-- form start -->
+                <form>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" id="email" value="<?php echo $email ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" id="name" value="<?php echo $name ?>">
+                    </div>
+                    <div class="form-group" hidden>
+                      <label for="name">ID</label>
+                      <input type="text" class="form-control" id="id" value="<?php echo $id ?>">
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" value="<?php echo $name ?>">
-                  </div>  
-                  <div class="form-group" hidden>
-                    <label for="name">ID</label>
-                    <input type="text" class="form-control" id="id" value="<?php echo $id ?>">
-                  </div>                                                                                                
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  <button type="button" class="btn btn-primary" onclick="editMyDetails()">Confirm</button>
-                </div>
-              </form>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="button" class="btn btn-primary" onclick="editMyDetails()">Confirm</button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
             </div>
-            <!-- /.card -->
-            </div>
-          <!--/.col (right) -->
-          <div class="col-md-6">
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
+            <!--/.col (right) -->
+            <div class="col-md-6">
+              <!-- Profile Image -->
+              <div class="card card-primary card-outline">
                 <div class="card-body color-palette-box">
 
-                    <h3 class="profile-username text-center"><?php echo $name ?></h3>
+                  <h3 class="profile-username text-center"><?php echo $name ?></h3>
 
-                    <p class="text-muted text-center"><?php echo $type ?></p>
+                  <p class="text-muted text-center"><?php echo $type ?></p>
 
-                    <p class="text text-center">Lecture History</p>
+                  <p class="text text-center">Lecture History</p>
 
-                    <ul class="list-group list-group-unbordered mb-3">
+                  <ul class="list-group list-group-unbordered mb-3">
                     <?php
-                        $date = date('Y-m-d');
-                        $query = "SELECT * FROM lectures WHERE (Date < '$date' AND Lecturer = '$id') ORDER BY Date DESC LIMIT 10";
-                        $res = mysqli_query($con,$query);
-                        if (mysqli_num_rows($result) > 0) {                          
-                            while($rows=mysqli_fetch_assoc($res))
-                            {
-                                echo '  
+                    $date = date('Y-m-d');
+                    $query = "SELECT * FROM lectures WHERE (Date < '$date' AND Lecturer = '$id') ORDER BY Date DESC LIMIT 10";
+                    $res = mysqli_query($con, $query);
+                    if (mysqli_num_rows($result) > 0) {
+                      while ($rows = mysqli_fetch_assoc($res)) {
+                        echo '  
                                     <li class="list-group-item">
                                     <b>' . $rows["Title"] . '</b>
                                     </li>  
-                                    ';                             
-                            }
-                        }
+                                    ';
+                      }
+                    }
 
                     ?>
-                    </ul>
-                <!-- /.card-body -->
+                  </ul>
+                  <!-- /.card-body -->
                 </div>
+              </div>
+              <!-- /.card -->
             </div>
-            <!-- /.card -->
-        </div>
-        <div class="col-md-6">
+            <div class="col-md-6">
               <!-- general form elements -->
               <div class="card card-primary">
                 <div class="card-header">
@@ -201,11 +199,7 @@ session_start();
                 <!-- form start -->
                 <form>
                   <div class="card-body">
-                  <div class="form-group">
-                    <label id="warning" style="color:red;visibility: hidden;" >Passwords Entered Dont match</label>
-                    </div>
                     <div class="form-group">
-                    <label id="warning">Passwords Entered Dont match</label>
                       <label for="name">Current Password</label>
                       <div class="input-group" id="password">
                         <input type="password" class="form-control" id="passInput1" placeholder="Change password here">
@@ -232,18 +226,18 @@ session_start();
               </div>
               <!-- /.card -->
             </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.1.0-rc
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
     </div>
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+        <b>Version</b> 3.1.0-rc
+      </div>
+      <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -281,13 +275,12 @@ session_start();
     });
   </script>
   <script>
-      function editMyDetails()
-      {
-        var id = $("#id")[0].value;
-        var name = $("#name")[0].value;
-        var email = $("#email")[0].value;
-        
-        $.post("../Php/detailsEdit.php", {
+    function editMyDetails() {
+      var id = $("#id")[0].value;
+      var name = $("#name")[0].value;
+      var email = $("#email")[0].value;
+
+      $.post("../Php/detailsEdit.php", {
           id: id,
           name: name,
           email: email,
@@ -298,14 +291,14 @@ session_start();
               icon: 'success',
               title: 'User updated successfully!',
             }).then((result) => {
-              location.reload();             
+              location.reload();
             })
 
           } else {
             alert("Failed!");
           }
         });
-      }
+    }
   </script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -329,6 +322,7 @@ session_start();
     function passwordSwap() {
       var pass1 = document.getElementById("passInput1").value;
       var pass3 = document.getElementById("passInput3").value;
+      if (pass1 != "") {
         $.post("../Php/changePass.php", {
             pass: pass1,
             newpass: pass3
@@ -344,11 +338,28 @@ session_start();
 
             }
             if (data == 2) {
-              var x = document.getElementById("warning");
-              x.style.visibility = "visible";
+              Swal.fire(
+                'Error.',
+                "Passwords Don't Match.",
+                'error',
+              );
+            }
+            if (data == 3) {
+              Swal.fire(
+                'Error.',
+                "Password Can't Be Empty.",
+                'error',
+              );
             }
           });
+      } else {
+        Swal.fire(
+          'Error.',
+          "Password Can't Be Empty.",
+          'error',
+        );
       }
+    }
   </script>
 </body>
 

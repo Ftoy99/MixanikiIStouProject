@@ -117,7 +117,7 @@ session_start();
                     <tbody>
                       <?php
                       include_once('../Php/connect.php');
-                      $sql = 'SELECT * FROM lectures WHERE Lecturer="'.$_SESSION["UserID"].'"';
+                      $sql = 'SELECT * FROM lectures WHERE Lecturer="' . $_SESSION["UserID"] . '"';
                       $result = mysqli_query($con, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
@@ -257,8 +257,8 @@ session_start();
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
-    <!-- Modal -->
-    <div class="modal fade" id="MEditLecture">
+  <!-- Modal -->
+  <div class="modal fade" id="MEditLecture">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -398,23 +398,23 @@ session_start();
       input.value = "";
     }
 
-    function EditLectureModal(table){
-      $("#eTitle")[0].value= table.cells[1].innerHTML;
-      $("#eDate")[0].value= table.cells[2].innerHTML;
-      $("#eSTime")[0].value= table.cells[3].innerHTML;
-      $("#eETime")[0].value= table.cells[4].innerHTML;
+    function EditLectureModal(table) {
+      $("#eTitle")[0].value = table.cells[1].innerHTML;
+      $("#eDate")[0].value = table.cells[2].innerHTML;
+      $("#eSTime")[0].value = table.cells[3].innerHTML;
+      $("#eETime")[0].value = table.cells[4].innerHTML;
       $("#eID")[0].value = table.childNodes[1].childNodes[0].getAttribute('data-value');
     }
 
-    function UpdateLecture(){
+    function UpdateLecture() {
       var title = $("#eTitle")[0].value;
       var date = $("#eDate")[0].value;
       var stime = $("#eSTime")[0].value;
       var etime = $("#eETime")[0].value;
       var id = $("#eID")[0].value;
-      
+
       $.post("../Php/lectureUpdate.php", {
-          id:id,
+          id: id,
           title: title,
           date: date,
           stime: stime,
@@ -436,8 +436,6 @@ session_start();
           }
         });
     }
-
-
   </script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -199,11 +199,7 @@ session_start();
                 <!-- form start -->
                 <form>
                   <div class="card-body">
-                  <div class="form-group">
-                    <label id="warning" style="color:red;visibility: hidden;" >Passwords Entered Dont match</label>
-                    </div>
                     <div class="form-group">
-                    <label id="warning">Passwords Entered Dont match</label>
                       <label for="name">Current Password</label>
                       <div class="input-group" id="password">
                         <input type="password" class="form-control" id="passInput1" placeholder="Change password here">
@@ -328,6 +324,7 @@ session_start();
     function passwordSwap() {
       var pass1 = document.getElementById("passInput1").value;
       var pass3 = document.getElementById("passInput3").value;
+      if (pass1 != "") {
         $.post("../Php/changePass.php", {
             pass: pass1,
             newpass: pass3
@@ -343,11 +340,31 @@ session_start();
 
             }
             if (data == 2) {
-              var x = document.getElementById("warning");
-              x.style.visibility = "visible";
+              Swal.fire(
+                'Error.',
+                "Passwords Don't Match.",
+                'error',
+              );
+            }
+            if (data == 3) {
+              Swal.fire(
+                'Error.',
+                "Password Can't Be Empty.",
+                'error',
+              );
             }
           });
+      } else {
+        Swal.fire(
+          'Error.',
+          "Password Can't Be Empty.",
+          'error',
+        );
+        // var y = document.getElementById("warning2");
+        // y.style.visibility = "visible";
+
       }
+    }
   </script>
 </body>
 

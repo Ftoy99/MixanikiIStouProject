@@ -8,7 +8,7 @@ session_start();
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="admin_index.html" class="brand-link">
+    <a href="dashboard.php" class="brand-link">
         <span class="brand-text font-weight-light">Student Record System</span>
     </a>
 
