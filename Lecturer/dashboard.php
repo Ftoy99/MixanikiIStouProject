@@ -21,6 +21,7 @@ include_once('../Php/connect.php');
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
   <link rel="stylesheet" href="../css/darktheme.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -38,26 +39,6 @@ include_once('../Php/connect.php');
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="contact.php" class="nav-link">Contact</a>
-        </li>
-      </ul>
-
-      <!-- SEARCH FORM -->
-      <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-          </label>
         </li>
       </ul>
     </nav>
@@ -197,6 +178,7 @@ include_once('../Php/connect.php');
   <script src="../jss/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="../jss/dist/js/adminlte.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <script>
     $(function() {
       $("#sidebar").load("sidebar.php");

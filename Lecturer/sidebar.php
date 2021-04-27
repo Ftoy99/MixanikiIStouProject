@@ -46,6 +46,12 @@ session_start();
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="about.php" class="nav-link">
+                    <i class="nav-icon fa fa-info"></i>
+                    <p>About</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="../index.php" class="nav-link">
                     <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
                     <p>Logout</p>
