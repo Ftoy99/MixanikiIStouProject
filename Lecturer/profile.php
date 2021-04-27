@@ -114,7 +114,7 @@ session_start();
                   <div class="card-body">
                     <div class="form-group">
                       <label for="email">Email address</label>
-                      <input type="email" class="form-control" id="email" value="<?php echo $email ?>">
+                      <input type="email" class="form-control" id="email" value="<?php echo $email ?>" readonly>
                     </div>
                     <div class="form-group">
                       <label for="name">Name</label>
@@ -233,10 +233,6 @@ session_start();
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-      <div class="float-right d-none d-sm-block">
-        <b>Version</b> 3.1.0-rc
-      </div>
-      <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->
