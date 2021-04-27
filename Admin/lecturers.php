@@ -10,7 +10,8 @@ session_start();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SRS - Admin</title>
-
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -36,6 +37,7 @@ session_start();
           <a href="contact.php" class="nav-link">Contact</a>
         </li>
       </ul>
+
 
       <!-- SEARCH FORM -->
       <form class="form-inline ml-3">
@@ -145,6 +147,37 @@ session_start();
               <!-- /.card -->
             </div>
           </div>
+          <!-- start vue js -->
+          <div id="secret">
+            <button @click="modalAction()">ッ</button>
+            <div v-if="modal" class="bg-white pin-t pin-l h-500 w-500">
+              <div class="bg-white p-4 rounded w-1/3">
+                <h2 class="mb-2">You found a secret!</h2>
+                <p>As a reward you can have a look at our lead engineer, hard at work to bring you this system!</p>
+                <img src="https://media.giphy.com/media/unQ3IJU2RG7DO/giphy.gif">
+                <br>
+                <button @click="modalAction()" class="bg-teal text-white font-bold px-4 py-2 rounded-full">Close</button>            
+              </div>
+            </div>
+          </div>
+          <script type="text/javascript">
+            var secret = new Vue({
+              el: '#secret',
+              data: {
+                modal: false
+              },
+              methods: {
+                modalAction(){
+                  if(this.modal == false){
+                    this.modal = true
+                  } else {
+                    this.modal = false
+                  }
+                }
+              }
+            })
+          </script>
+          <!-- end vue js -->
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->
@@ -163,12 +196,9 @@ session_start();
 
     <!-- Main Footer -->
     <footer class="main-footer">
-      <!-- To the right 
     <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div> -->
-      <!-- Default to the left
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. -->
+    </div>
+    <strong>Made by Dimitrios Ioannou and Antonis Savvides</strong>
     </footer>
   </div>
   <!-- ./wrapper -->
