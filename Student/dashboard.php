@@ -103,7 +103,7 @@ include_once('../Php/connect.php');
                   </div>
                 <div class="card-body">                
                   <p class="card-text">
-                    <a href="contact.php">Queries</a>
+                    <a href="contact.php" v-b-tooltip.hover title="Ask questions to the admin. Any answers will also appear here.">Queries</a>
                   </p>
                 </div>
               </div>
@@ -116,7 +116,6 @@ include_once('../Php/connect.php');
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
