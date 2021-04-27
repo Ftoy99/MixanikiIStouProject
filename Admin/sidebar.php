@@ -52,8 +52,8 @@ $email = $_SESSION['email'];
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="students.php" class="nav-link">
-                    <i class="nav-icon fa fa-graduation-cap" v-b-tooltip.hover title="List of all students. Can edit or delete. A new user will appear here by default."></i>
+                    <a href="students.php" class="nav-link" v-b-tooltip.hover title="List of all students. Can edit or delete. A new user will appear here by default.">
+                    <i class="nav-icon fa fa-graduation-cap"></i>
                     <p>Manage Students</p>
                     </a>
                 </li>
@@ -70,13 +70,13 @@ $email = $_SESSION['email'];
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="about.php" class="nav-link">
+                    <a href="about.php" class="nav-link" v-b-tooltip.hover title="Information about the system's creators.">
                     <i class="nav-icon fa fa-info"></i>
                     <p>About</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../index.php" class="nav-link">
+                    <a href="../index.php" class="nav-link" v-b-tooltip.hover title="Return to login page.">
                     <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
                     <p>Logout</p>
                     </a>

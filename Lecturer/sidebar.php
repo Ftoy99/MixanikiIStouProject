@@ -46,20 +46,14 @@ session_start();
                     </a>
                 </li>
                 <li class="nav-item">
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-                    <a href="../index.php" class="nav-link" v-b-tooltip.hover title="Return to login page.">
-=======
->>>>>>> Stashed changes
+                    <a href="../index.php" class="nav-link" v-b-tooltip.hover title="Information about the system's creators.">
                     <a href="about.php" class="nav-link">
                     <i class="nav-icon fa fa-info"></i>
                     <p>About</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../index.php" class="nav-link">
->>>>>>> 6309eeaf25113ac272272f82255571689ccebfd0
+                    <a href="../index.php" class="nav-link" v-b-tooltip.hover title="Return to login page.">
                     <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
                     <p>Logout</p>
                     </a>
