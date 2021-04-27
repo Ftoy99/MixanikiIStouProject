@@ -46,8 +46,7 @@ session_start();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../index.php" class="nav-link" v-b-tooltip.hover title="Information about the system's creators.">
-                    <a href="about.php" class="nav-link">
+                    <a href="about.php" class="nav-link"  v-b-tooltip.hover title="Information about the system's creators.">
                     <i class="nav-icon fa fa-info"></i>
                     <p>About</p>
                     </a>
