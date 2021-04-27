@@ -18,7 +18,7 @@ $email = $_SESSION['email'];
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="profile.php" class="d-block">
+                <a href="profile.php" class="d-block" v-b-tooltip.hover title="Click to view your profile.">
                     <?php
                         $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE Email = '$email'");
                         if($name_query)
@@ -40,31 +40,31 @@ $email = $_SESSION['email'];
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-                    <a href="dashboard.php" @mouseover="mouseover" @mouseleave="mouseleave" class="nav-link">
+                    <a href="dashboard.php" class="nav-link" v-b-tooltip.hover title="Return to the main page.">
                     <i class="nav-icon fas fa-th"></i>
                     <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="lecturers.php" class="nav-link">
+                    <a href="lecturers.php" class="nav-link" v-b-tooltip.hover title="List of all lecturers. Can edit or delete.">
                     <i class="nav-icon fa fa-university"></i>
                     <p>Manage Lecturers</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="students.php" class="nav-link">
-                    <i class="nav-icon fa fa-graduation-cap"></i>
+                    <i class="nav-icon fa fa-graduation-cap" v-b-tooltip.hover title="List of all students. Can edit or delete. A new user will appear here by default."></i>
                     <p>Manage Students</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="lectures.php" class="nav-link">
+                    <a href="lectures.php" class="nav-link" v-b-tooltip.hover title="List of all lectures.">
                     <i class="nav-icon fa fa-book"></i>
                     <p>Lectures</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="contact.php" class="nav-link">
+                    <a href="contact.php" class="nav-link" v-b-tooltip.hover title="Any questions the users send will appear here.">
                     <i class="nav-icon fa fa-question" aria-hidden="true"></i>
                     <p>Contact Us Queries</p>
                     </a>

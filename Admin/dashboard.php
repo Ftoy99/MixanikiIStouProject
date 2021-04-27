@@ -9,7 +9,7 @@ include_once '../Php/connect.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SRS - Admin</title>
-
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -79,14 +79,14 @@ include_once '../Php/connect.php';
             <div class="col-lg-6">
               <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Manage Users</h3>
+                    <h3 class="card-title" >Manage Users</h3>
                   </div>
                 <div class="card-body">
                   <p class="card-text">
-                    <a href="lecturers.php">Manage Lecturers</a>     
+                    <a href="lecturers.php" v-b-tooltip.hover title="List of all lecturers. Can edit or delete.">Manage Lecturers</a>     
                   </p>
                   <p class="card-text">
-                    <a href="students.php">Manage Students</a>
+                    <a href="students.php" v-b-tooltip.hover title="List of all students. Can edit or delete. A new user will appear here by default.">Manage Students</a>
                   </p>
                 </div>
               </div>
@@ -99,7 +99,7 @@ include_once '../Php/connect.php';
                     </div>
                   <div class="card-body">
                     <p class="card-text">
-                        <a href="lectures.php">Lectures</a>
+                        <a href="lectures.php" v-b-tooltip.hover title="List of all lectures.">Lectures</a>
                     </p>
                   </div>
                 </div>
@@ -115,7 +115,7 @@ include_once '../Php/connect.php';
                   </div>
                 <div class="card-body">                 
                   <p class="card-text">
-                    <a href="contact.php">Queries</a>
+                    <a href="contact.php" v-b-tooltip.hover title="Any questions the users send will appear here.">Queries</a>
                   </p>
                 </div>
               </div>

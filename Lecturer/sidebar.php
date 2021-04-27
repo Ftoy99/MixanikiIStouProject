@@ -17,7 +17,7 @@ session_start();
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="profile.php" class="d-block"><?php
+                <a href="profile.php" class="d-block" v-b-tooltip.hover title="Click to view your profile."><?php
                 echo $_SESSION["Name"]; ?></a>
             </div>
         </div>
@@ -28,24 +28,30 @@ session_start();
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="dashboard.php" class="nav-link">
+                    <a href="dashboard.php" class="nav-link" v-b-tooltip.hover title="Return to the main page.">
                     <i class="nav-icon fas fa-th"></i>
                     <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="lectures.php" class="nav-link">
+                    <a href="lectures.php" class="nav-link" v-b-tooltip.hover title="List of all your lectures. Can add, edit or delete.">
                     <i class="nav-icon fa fa-book"></i>
                     <p>Manage Lectures</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="students.php" class="nav-link">
+                    <a href="students.php" class="nav-link" v-b-tooltip.hover title="List of all students attending your lectures. Can remove students.">
                     <i class="nav-icon fa fa-graduation-cap"></i>
                     <p>Manage Students</p>
                     </a>
                 </li>
                 <li class="nav-item">
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+                    <a href="../index.php" class="nav-link" v-b-tooltip.hover title="Return to login page.">
+=======
+>>>>>>> Stashed changes
                     <a href="about.php" class="nav-link">
                     <i class="nav-icon fa fa-info"></i>
                     <p>About</p>
@@ -53,6 +59,7 @@ session_start();
                 </li>
                 <li class="nav-item">
                     <a href="../index.php" class="nav-link">
+>>>>>>> 6309eeaf25113ac272272f82255571689ccebfd0
                     <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
                     <p>Logout</p>
                     </a>
