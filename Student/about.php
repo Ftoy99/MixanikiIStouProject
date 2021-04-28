@@ -163,7 +163,7 @@ include_once('../Php/connect.php')
                                                     id: '17007'
                                                 },
                                                 {
-                                                    name: 'Charalabos Xristofi',
+                                                    name: 'Charalambos Christofi',
                                                     id: '14792'
                                                 },
                                                 {
