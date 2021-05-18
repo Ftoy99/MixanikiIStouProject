@@ -90,8 +90,9 @@ session_start();
                 </div>
                 <!-- /.card-header -->
                 <?php
+                $UserID = $_SESSION['UserID'];
                 $email = $_SESSION['email'];
-                $sql = "SELECT * FROM accounts WHERE Email = '$email'";
+                $sql = "SELECT * FROM accounts WHERE AccountID = '$UserID'";
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                   while ($row = mysqli_fetch_assoc($result)) {
@@ -157,9 +158,9 @@ session_start();
                 </div>
                 <!-- /.card-header -->
                 <?php
+                $UserID = $_SESSION['UserID'];
                 $email = $_SESSION['email'];
-                $sql = "SELECT * FROM accounts WHERE Email = '$email'";
-                $result = mysqli_query($con, $sql);
+                $sql = "SELECT * FROM accounts WHERE AccountID = '$UserID'";
                 if (mysqli_num_rows($result) > 0) {
                   while ($row = mysqli_fetch_assoc($result)) {
                     $id = $row["AccountID"];
@@ -219,7 +220,7 @@ session_start();
       <div class="float-right d-none d-sm-block">
         <b>Version</b> 3.1.0-rc
       </div>
-      <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+
     </footer>
 
     <!-- Control Sidebar -->
@@ -239,111 +240,111 @@ session_start();
       Anything you want
     </div> -->
       <!-- Default to the left
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. -->
+   
     </footer>
   </div>
   <!-- ./wrapper -->
 
-  <!-- REQUIRED SCRIPTS -->
+      <!-- REQUIRED SCRIPTS -->
 
-  <!-- jQuery -->
-  <script src="../jss/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="../jss/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="../jss/dist/js/adminlte.js"></script>
-  <script>
-    $(function() {
-      $("#sidebar").load("sidebar.php");
-    });
-  </script>
-  <script>
-    function editMyDetails() {
-      var id = $("#id")[0].value;
-      var name = $("#name")[0].value;
-      var email = $("#email")[0].value;
-
-      $.post("../Php/detailsEdit.php", {
-          id: id,
-          name: name,
-          email: email,
-        })
-        .done(function(data) {
-          if (data == "TRUE") {
-            Swal.fire({
-              icon: 'success',
-              title: 'User updated successfully!',
-            }).then((result) => {
-              location.reload();
-            })
-
-          } else {
-            alert("Failed!");
-          }
+      <!-- jQuery -->
+      <script src="../jss/jquery/jquery.min.js"></script>
+      <!-- Bootstrap 4 -->
+      <script src="../jss/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- AdminLTE App -->
+      <script src="../jss/dist/js/adminlte.js"></script>
+      <script>
+        $(function() {
+          $("#sidebar").load("sidebar.php");
         });
-    }
-  </script>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <script>
-    function passwordVisibility(x) {
-      if (x == 1) {
-        var x = document.getElementById("passInput1");
-      }
-      if (x == 3) {
-        var x = document.getElementById("passInput3");
-      }
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
-    }
+      </script>
+      <script>
+        function editMyDetails() {
+          var id = $("#id")[0].value;
+          var name = $("#name")[0].value;
+          var email = $("#email")[0].value;
 
-    function passwordSwap() {
-      var pass1 = document.getElementById("passInput1").value;
-      var pass3 = document.getElementById("passInput3").value;
-      if (pass1 != "") {
-        $.post("../Php/changePass.php", {
-            pass: pass1,
-            newpass: pass3
-          })
-          .done(function(data) {
-            if (data == 1) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Password Changed successfully!'
-              }).then((result) => {
-                location.reload();
+          $.post("../Php/detailsEdit.php", {
+              id: id,
+              name: name,
+              email: email,
+            })
+            .done(function(data) {
+              if (data == "TRUE") {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'User updated successfully!',
+                }).then((result) => {
+                  location.reload();
+                })
+
+              } else {
+                alert("Failed!");
+              }
+            });
+        }
+      </script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+      <script>
+        function passwordVisibility(x) {
+          if (x == 1) {
+            var x = document.getElementById("passInput1");
+          }
+          if (x == 3) {
+            var x = document.getElementById("passInput3");
+          }
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
+        }
+
+        function passwordSwap() {
+          var pass1 = document.getElementById("passInput1").value;
+          var pass3 = document.getElementById("passInput3").value;
+          if (pass1 != "") {
+            $.post("../Php/changePass.php", {
+                pass: pass1,
+                newpass: pass3
               })
+              .done(function(data) {
+                if (data == 1) {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Password Changed successfully!'
+                  }).then((result) => {
+                    location.reload();
+                  })
 
-            }
-            if (data == 2) {
-              Swal.fire(
-                'Error.',
-                "Passwords Don't Match.",
-                'error',
-              );
-            }
-            if (data == 3) {
-              Swal.fire(
-                'Error.',
-                "Password Can't Be Empty.",
-                'error',
-              );
-            }
-          });
-      } else {
-        Swal.fire(
-          'Error.',
-          "Password Can't Be Empty.",
-          'error',
-        );
-      }
-    }
-  </script>
+                }
+                if (data == 2) {
+                  Swal.fire(
+                    'Error.',
+                    "Passwords Don't Match.",
+                    'error',
+                  );
+                }
+                if (data == 3) {
+                  Swal.fire(
+                    'Error.',
+                    "Password Can't Be Empty.",
+                    'error',
+                  );
+                }
+              });
+          } else {
+            Swal.fire(
+              'Error.',
+              "Password Can't Be Empty.",
+              'error',
+            );
+          }
+        }
+      </script>
 </body>
 
 </html>

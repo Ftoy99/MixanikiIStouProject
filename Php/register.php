@@ -11,13 +11,21 @@ $password2     = $_POST["password2"];
 
 if ($password == $password2) {
     $password = hash("sha256", $password);
-    //check if email dosent exist . 
 
-    $query = mysqli_query($con, "SELECT * FROM accounts WHERE email='$email'");
+    //check if email dosent exist . 
+    $stmt = mysqli_prepare($con, "SELECT * FROM accounts WHERE email=?");
+    mysqli_stmt_bind_param($stmt, 's', $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
     //IF result Do Stuff with them
-    if (mysqli_num_rows($query) == 0) {
-        $sql = "INSERT INTO accounts (Email,Name,Password,Type) VALUES ('$email' ,'$name' ,'$password', 0)";
-        if (mysqli_query($con, $sql)) {
+    if (mysqli_stmt_num_rows($stmt) == 0) {
+        //Create ACC QRY
+        $stmt = mysqli_prepare($con, "INSERT INTO accounts (Email,Name,Password,Type) VALUES (?,?,?, 0)");
+        mysqli_stmt_bind_param($stmt, 'sss', $email,$name,$password);
+
+        //Error Or Succsess MSGS
+        if (mysqli_stmt_execute($stmt)) {
             echo "New record created successfully";
             header('Location: ../index.php');
         } else {

@@ -327,6 +327,7 @@ session_start();
 
           } else {
             alert("Failed!");
+            alert(data);
           }
         });
     }

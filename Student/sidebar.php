@@ -21,7 +21,11 @@ $email = $_SESSION['email'];
             <div class="info">
                 <a href="profile.php" class="d-block" v-b-tooltip.hover title="List of all your lectures. Can add, edit or delete.">
                     <?php
-                        $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE Email = '$email'");
+                     $UserID = $_SESSION['UserID'];
+
+                     $sql = "SELECT * FROM accounts WHERE AccountID = '$UserID'";
+                     $result = mysqli_query($con, $sql);
+                        $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE AccountID = '$UserID'");
                         if($name_query)
                         {
                             while($rows = mysqli_fetch_assoc($name_query))

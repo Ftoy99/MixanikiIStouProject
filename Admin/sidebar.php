@@ -20,7 +20,10 @@ $email = $_SESSION['email'];
             <div class="info">
                 <a href="profile.php" class="d-block" v-b-tooltip.hover title="Click to view your profile.">
                     <?php
-                        $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE Email = '$email'");
+                        $UserID = $_SESSION['UserID'];
+                        $email = $_SESSION['email'];
+                        $sql = "SELECT * FROM accounts WHERE AccountID = '$UserID'";
+                        $name_query = mysqli_query($con, "SELECT Name FROM accounts WHERE AccountID = '$UserID'");
                         if($name_query)
                         {
                             while($rows = mysqli_fetch_assoc($name_query))

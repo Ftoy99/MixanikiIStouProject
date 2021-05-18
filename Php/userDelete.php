@@ -2,8 +2,9 @@
 include_once('connect.php');
 
 $id = $_POST["id"];
-$sql = 'DELETE FROM `accounts` WHERE `AccountID`="' . $id . '";';
-if (mysqli_query($con, $sql)) {
+$stmt = mysqli_prepare($con, "DELETE FROM `accounts` WHERE `AccountID`=?");
+mysqli_stmt_bind_param($stmt, 'i', $id);
+if (mysqli_stmt_execute($stmt)) {
     echo "TRUE";
 } else {
     //echo $sql;

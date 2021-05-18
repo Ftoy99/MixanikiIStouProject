@@ -5,12 +5,12 @@ include_once('connect.php');
 $id = $_POST["id"];
 $name = $_POST["name"];
 $email = $_POST["email"];
+//Query
+$stmt = mysqli_prepare($con, "UPDATE accounts SET Name = ?, Email = ? WHERE AccountID = ?;");
+mysqli_stmt_bind_param($stmt, 'ssd', $name, $email, $id);
 
-$sql = "UPDATE accounts SET Name = '$name', Email = '$email' WHERE AccountID = '$id';";
-
-
-if (mysqli_query($con,$sql)){
+if (mysqli_stmt_execute($stmt)) {
     echo "TRUE";
-}else{
+} else {
     echo $sql;
 }

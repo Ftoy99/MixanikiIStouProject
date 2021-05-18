@@ -7,9 +7,9 @@ $stime = $_POST["stime"];
 $etime = $_POST["etime"];
 $id = $_POST["id"];
 $date = date("Y/m/d", strtotime($date));
-$sql = 'UPDATE `lectures` SET `Title`="'.$title.'",`Date`="'.$date.'",`TimeS`="'.$stime.'",`TimeE`="'.$etime.'" WHERE `LectureID`='.$id.';';
-
-if (mysqli_query($con,$sql)){
+$stmt = mysqli_prepare($con, "UPDATE `lectures` SET `Title`=?,`Date`=?,`TimeS`=?,`TimeE`=? WHERE `LectureID`=?");
+mysqli_stmt_bind_param($stmt, 'ssssi', $title,$date,$stime,$etime,$id);
+if (mysqli_stmt_execute($stmt)){
     echo "TRUE";
 }else{
     echo $sql;

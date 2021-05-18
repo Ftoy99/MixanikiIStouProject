@@ -89,7 +89,8 @@ session_start();
                 <!-- /.card-header -->
                 <?php
                 $email = $_SESSION['email'];
-                $sql = "SELECT * FROM accounts WHERE Email = '$email'";
+                $UserID = $_SESSION['UserID'];
+                $sql = "SELECT * FROM accounts WHERE AccountID = '$UserID'";
                 $result = mysqli_query($con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                   while ($row = mysqli_fetch_assoc($result)) {
@@ -176,8 +177,10 @@ session_start();
                 <!-- /.card-header -->
                 <?php
                 $email = $_SESSION['email'];
-                $sql = "SELECT * FROM accounts WHERE Email = '$email'";
+                $sql = "SELECT * FROM accounts WHERE AccountID = '$UserID'";
                 $result = mysqli_query($con, $sql);
+                $UserID = $_SESSION['UserID'];
+
                 if (mysqli_num_rows($result) > 0) {
                   while ($row = mysqli_fetch_assoc($result)) {
                     $id = $row["AccountID"];
