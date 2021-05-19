@@ -5,8 +5,10 @@ $student = $_POST["student"];
 $lecture = $_POST["lecture"];
 
 
-$sql = 'DELETE FROM `participations` WHERE `LectureID`="'.$student.'" AND `AccountID`="'.$lecture.'"';
-if (mysqli_query($con, $sql)) {
+$stmt = mysqli_prepare($con, "DELETE FROM `participations` WHERE `LectureID`=? AND `AccountID`=?");
+mysqli_stmt_bind_param($stmt, 'ii', $lecture,$student);
+
+if (mysqli_stmt_execute($stmt)) {
     echo "TRUE";
 } else {
     echo $sql;
