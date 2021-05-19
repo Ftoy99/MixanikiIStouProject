@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +37,15 @@ session_start();
 
           if ($_SESSION['RegisterError'] == '2') {
             echo '<p class="login-box-msg" style="color: red;">This Email Is Already Registered.</p>';
+          }
+          if ($_SESSION['RegisterError'] == '3') {
+            echo '<p class="login-box-msg" style="color: red;">Email Cant Be Empty.</p>';
+          }
+          if ($_SESSION['RegisterError'] == '4') {
+            echo '<p class="login-box-msg" style="color: red;">Name Cant be Empty.</p>';
+          }
+          if ($_SESSION['RegisterError'] == '5') {
+            echo '<p class="login-box-msg" style="color: red;">Password Must Be Longer Than 3 Characters.</p>';
           }
 
           unset($_SESSION['RegisterError']);
