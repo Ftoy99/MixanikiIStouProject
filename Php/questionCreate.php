@@ -2,8 +2,10 @@
 include_once('connect.php');
 session_start();
 
-$title = $_POST["title"];
-$description = $_POST["description"];
+$title_input = $_POST["title"];
+$title = strip_tags($title_input);
+$description_input = $_POST["description"];
+$description = strip_tags($description_input);
 $id = $_POST["id"];
 
 $stmt = mysqli_prepare($con, "INSERT INTO questions(Title,Description,AskedBy) VALUES (?,?,?);");

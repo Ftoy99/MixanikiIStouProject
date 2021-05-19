@@ -3,7 +3,8 @@ include_once('connect.php');
 session_start();
 
 $pass = $_POST["pass"];
-$new = $_POST["newpass"];
+$input = $_POST["newpass"];
+$new = strip_tags($input);
 $user = $_SESSION["UserID"];
 if ($pass==""){
     echo 3;

@@ -3,7 +3,8 @@ session_start();
 include_once('connect.php');
 
 $id = $_POST["id"];
-$name = $_POST["name"];
+$input = $_POST["name"];
+$name = strip_tags($input);
 $email = $_POST["email"];
 //Query
 $stmt = mysqli_prepare($con, "UPDATE accounts SET Name = ?, Email = ? WHERE AccountID = ?;");

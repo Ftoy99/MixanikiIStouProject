@@ -3,9 +3,10 @@ include_once("connect.php");
 session_start();
 
 $email         = $_POST["email"];
-$name          = $_POST["name"];
-$password      = $_POST["password"];
-$password2     = $_POST["password2"];
+$name_input     = $_POST["name"];
+$name  = strip_tags($name_input);
+$password   = $_POST["password"];
+$password2 = $_POST["password2"];
 //Error Checks
 if ($email == "") {
     //Email Empty Exists Error = 3 .

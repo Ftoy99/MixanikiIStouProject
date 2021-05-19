@@ -1,7 +1,8 @@
 <?php
 include_once('connect.php');
 
-$title = $_POST["title"];
+$title_input = $_POST["title"];
+$title = strip_tags($title_input);
 $date = $_POST["date"];
 $stime = $_POST["stime"];
 $etime = $_POST["etime"];

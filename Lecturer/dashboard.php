@@ -142,6 +142,7 @@ include_once('../Php/connect.php');
               }
             })
           </script>
+          <!-- end vue js -->
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->

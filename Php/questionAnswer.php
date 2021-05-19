@@ -2,7 +2,8 @@
 include_once('connect.php');
 session_start();
 
-$answer = $_POST["answer"];
+$answer_input = $_POST["answer"];
+$answer = strip_tags($answer_input);
 $qid = $_POST["id"];
 $answerdby = $_SESSION["UserID"];
 
