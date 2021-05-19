@@ -194,8 +194,8 @@ session_start();
     <script>
       function KickStudent(x,y){
       $.post("../Php/kickstudent.php", {
-          student:y,
-          lecture:x
+          student:x,
+          lecture:y
         })
         .done(function(data) {
           if (data == "TRUE") {
