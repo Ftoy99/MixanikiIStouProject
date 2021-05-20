@@ -117,7 +117,7 @@ Secure(0);
                       <?php
                       include_once('../Php/connect.php');
                       $date = date("Y/m/d");
-                      $sql = "SELECT * FROM lectures WHERE Date > '$date'";
+                      $sql = "SELECT * FROM lectures WHERE Date >= '$date'";
                       $result = mysqli_query($con, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
