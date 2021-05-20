@@ -95,7 +95,7 @@ Secure(0);
                       <div class="input-group-append">
                         <button class="btn btn-default" onclick="Search()">
                           <i class="fas fa-search"></i>
-                        </button>                       
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -114,7 +114,7 @@ Secure(0);
                       </tr>
                     </thead>
                     <tbody>
-                      <?php                    
+                      <?php
                       include_once('../Php/connect.php');
                       $date = date("Y/m/d");
                       $sql = "SELECT * FROM lectures WHERE Date > '$date'";
@@ -123,9 +123,9 @@ Secure(0);
                         // output data of each row
                         $counter = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $timestart = date('g:ia', strtotime($row["TimeS"]));
-                            $timeend = date('g:ia', strtotime($row["TimeE"]));
-                            $date = date("d-m-Y", strtotime($row["Date"]));
+                          $timestart = date('g:ia', strtotime($row["TimeS"]));
+                          $timeend = date('g:ia', strtotime($row["TimeE"]));
+                          $date = date("d-m-Y", strtotime($row["Date"]));
                           echo '
                           <tr>
                           <td><div data-value="' . $row["LectureID"] . '">' . $counter . '</div></td>
@@ -160,7 +160,7 @@ Secure(0);
                 <p>As a reward you can have a look at our lead engineer, hard at work to bring you this system!</p>
                 <img src="https://media.giphy.com/media/unQ3IJU2RG7DO/giphy.gif">
                 <br>
-                <button @click="modalAction()" class="bg-teal text-white font-bold px-4 py-2 rounded-full">Close</button>            
+                <button @click="modalAction()" class="bg-teal text-white font-bold px-4 py-2 rounded-full">Close</button>
               </div>
             </div>
           </div>
@@ -171,8 +171,8 @@ Secure(0);
                 modal: false
               },
               methods: {
-                modalAction(){
-                  if(this.modal == false){
+                modalAction() {
+                  if (this.modal == false) {
                     this.modal = true
                   } else {
                     this.modal = false
@@ -252,7 +252,7 @@ Secure(0);
     }
   </script>
   <script>
-      function enrollLecture(row) {
+    function enrollLecture(row) {
       var id = row.childNodes[1].childNodes[0].getAttribute('data-value');
       var title = row.cells[1].innerHTML;
       var date = row.cells[2].innerHTML;
@@ -260,7 +260,7 @@ Secure(0);
       var timeEnd = row.cells[4].innerHTML;
 
       Swal.fire({
-        title:'Enroll to lecture: ' + title,
+        title: 'Enroll to lecture: ' + title,
         text: "You will enroll to participate this lecture. Once you do you need to contact the lecturer in case you have to miss the lecture for any reason.",
         showCancelButton: true,
         reverseButtons: true,
@@ -281,10 +281,13 @@ Secure(0);
                   'You have enrolled for the lecture.',
                   'success'
                 );
-                row.parentNode.removeChild(row);
 
               } else {
-                alert(data);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error!',
+                  text: 'You are already enrolled!',
+                })
               }
             });
         }
