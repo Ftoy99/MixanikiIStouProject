@@ -48,6 +48,12 @@ Secure(1);
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="contact.php" class="nav-link" v-b-tooltip.hover title="Any questions the users send will appear here.">
+                    <i class="nav-icon fa fa-question" aria-hidden="true"></i>
+                    <p>Contact Us Queries</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="about.php" class="nav-link"  v-b-tooltip.hover title="Information about the system's creators.">
                     <i class="nav-icon fa fa-info"></i>
                     <p>About</p>
