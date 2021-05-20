@@ -54,7 +54,7 @@ session_start();
         ?>
         <form action="Php/Register.php" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="E-Mail" name="email">
+            <input type="email" class="form-control" placeholder="E-Mail" name="email">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
