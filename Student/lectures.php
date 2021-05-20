@@ -7,6 +7,7 @@ Secure(0);
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,65 +21,54 @@ Secure(0);
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
 </head>
+
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+  <div class="wrapper">
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="dashboard.php" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="contact.php" class="nav-link">Contact</a>
-      </li>
-    </ul>
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="dashboard.php" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="contact.php" class="nav-link">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
+    <div id="sidebar"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">My Lectures</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                <li class="breadcrumb-item active">My Lectures</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
       </div>
-    </form>
-  </nav>
-  <!-- /.navbar -->
+      <!-- /.content-header -->
 
-  <div id="sidebar"></div>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">My Lectures</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-              <li class="breadcrumb-item active">My Lectures</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
+      <!-- Main content -->
+      <div class="content">
         <div class="container-fluid">
           <div class="row">
-          <div class="col-12">
+            <div class="col-12">
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">My Lectures</h3>
@@ -90,9 +80,6 @@ Secure(0);
                       <div class="input-group-append">
                         <button class="btn btn-default" onclick="Search()">
                           <i class="fas fa-search"></i>
-                        </button>
-                        <button class="btn btn-default" data-toggle="modal" data-target="#modal-Create-Lecture">
-                          <i class="fas fa-plus"></i>
                         </button>
                       </div>
                     </div>
@@ -114,7 +101,7 @@ Secure(0);
                     <tbody>
                       <?php
                       include_once('../Php/connect.php');
-                      $sql = 'SELECT * FROM `participations` join lectures on participations.LectureID=lectures.LectureID where Date>="'.date('Y-m-d').'" AND AccountID="'.$_SESSION["UserID"].'";';
+                      $sql = 'SELECT * FROM `participations` join lectures on participations.LectureID=lectures.LectureID where Date>="' . date('Y-m-d') . '" AND AccountID="' . $_SESSION["UserID"] . '";';
                       $result = mysqli_query($con, $sql);
                       if (mysqli_num_rows($result) > 0) {
                         // output data of each row
@@ -143,47 +130,76 @@ Secure(0);
               </div>
               <!-- /.card -->
             </div>
-            </div>
+          </div>
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+      <div class="p-3">
+        <h5>Title</h5>
+        <p>Sidebar content</p>
+      </div>
+    </aside>
+    <!-- /.control-sidebar -->
 
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right 
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right 
     <div class="float-right d-none d-sm-inline">
       Anything you want
     </div> -->
-    <!-- Default to the left
+      <!-- Default to the left
     <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. -->
-  </footer>
-</div>
-<!-- ./wrapper -->
+    </footer>
+  </div>
+  <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
+  <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="../jss/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../jss/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../jss/dist/js/adminlte.min.js"></script>
-<script> 
-  $(function(){
-    $("#sidebar").load("sidebar.php"); 
-  });
+  <!-- jQuery -->
+  <script src="../jss/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../jss/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../jss/dist/js/adminlte.min.js"></script>
+  <script>
+    $(function() {
+      $("#sidebar").load("sidebar.php");
+    });
   </script>
+  <script>
+    function Search() {
+      // Declare variables
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("SearchField");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("LecturesTable");
+      tr = table.getElementsByTagName("tr"),
+        th = table.getElementsByTagName("th");
+
+      // Loop through all table rows, and hide those who don't match the        search query
+      for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        for (var j = 0; j < th.length; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+              tr[i].style.display = "";
+              break;
+            }
+          }
+        }
+      }
+
+      input.value = "";
+    }
+  </script>
+
 </body>
+
 </html>
