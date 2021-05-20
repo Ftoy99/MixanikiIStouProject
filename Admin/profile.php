@@ -296,7 +296,7 @@ Secure(2);
 
         function passwordSwap() {
           var pass1 = document.getElementById("passInput1").value;
-          var prepass3 = document.getElementById("passInput3").value;
+          var pass3 = document.getElementById("passInput3").value;
           if (pass1 != "") {
             $.post("../Php/changePass.php", {
                 pass: pass1,

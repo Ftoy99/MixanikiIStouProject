@@ -20,7 +20,7 @@ Secure(2);
   <link rel="stylesheet" href="../css/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -80,7 +80,7 @@ Secure(2);
                       <div class="input-group-append">
                         <button class="btn btn-default" onclick="Search()">
                           <i class="fas fa-search"></i>
-                        </button>                       
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -208,7 +208,7 @@ Secure(2);
             </div>
             <div class="form-group">
               <label>Date:</label>
-              <input type="text" class="form-control" id="Date" placeholder="dd/mm/yyyy">
+              <input type="text" class="form-control" id="Date" placeholder="dd-mm-yyyy">
 
               <!-- /.input group -->
             </div>
@@ -235,30 +235,30 @@ Secure(2);
   <!-- /.modal -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script>
-    function Search(){
-        // Declare variables
-        var input, filter, table, tr, td, i ;
-        input = document.getElementById("SearchField");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("LecturesTable");
-        tr = table.getElementsByTagName("tr"),
+    function Search() {
+      // Declare variables
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("SearchField");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("LecturesTable");
+      tr = table.getElementsByTagName("tr"),
         th = table.getElementsByTagName("th");
 
-        // Loop through all table rows, and hide those who don't match the        search query
-        for (i = 1; i < tr.length; i++) {
-                    tr[i].style.display = "none";
-                    for(var j=0; j<th.length; j++){
-                td = tr[i].getElementsByTagName("td")[j];      
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1)                               {
-                        tr[i].style.display = "";
-                        break;
-                    }
-                }
+      // Loop through all table rows, and hide those who don't match the        search query
+      for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        for (var j = 0; j < th.length; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+              tr[i].style.display = "";
+              break;
             }
+          }
         }
+      }
 
-        input.value="";
+      input.value = "";
     }
   </script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>

@@ -243,7 +243,7 @@ Secure(1);
             </div>
             <div class="form-group">
               <label>Date:</label>
-              <input type="text" class="form-control" id="eDate" placeholder="dd/mm/yyyy">
+              <input type="text" class="form-control" id="eDate" placeholder="dd-mm-yyyy">
 
               <!-- /.input group -->
             </div>
