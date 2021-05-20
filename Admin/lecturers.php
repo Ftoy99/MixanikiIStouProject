@@ -219,7 +219,6 @@ Secure(2);
               <select class="form-control" id="permissions">
                 <option value=0>Student</option>
                 <option selected="selected" value=1>Lecturer</option>
-                <option value=2>Secretary</option>
               </select>
             </div> 
             <input hidden id="id"></field>       

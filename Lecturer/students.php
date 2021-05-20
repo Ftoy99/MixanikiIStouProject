@@ -80,17 +80,6 @@ Secure(1);
                       <div class="card-header">
                         <h3 class="card-title">' . $row["Title"] . '</h3>
                         <div class="card-tools">
-                          <div class="input-group input-group-sm" style="width: 200px;">
-                            <input type="text" name="table_search" id="SearchField" class="form-control float-right" placeholder="Search">
-                            <div class="input-group-append">
-                              <button class="btn btn-default" onclick="Search()">
-                                <i class="fas fa-search"></i>
-                              </button>
-                              <button class="btn btn-default" data-toggle="modal" data-target="#modal-Create-Lecture">
-                                <i class="fas fa-plus"></i>
-                              </button>
-                            </div>
-                          </div>
                         </div>
                       </div>
                       <!-- /.card-header -->
@@ -200,6 +189,34 @@ Secure(1);
           }
         });
       }
+
+      function Search(SearchBox,Table) {
+      // Declare variables
+      var input, filter, table, tr, td, i;
+      input = SearchBox.childNodes[1];
+      filter = input.value.toUpperCase();
+      table = Table;
+      tr = table.getElementsByTagName("tr"),
+      th = table.getElementsByTagName("th");
+
+      // Loop through all table rows, and hide those who don't match the        search query
+      for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        for (var j = 0; j < th.length; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+              tr[i].style.display = "";
+              break;
+            }
+          }
+        }
+      }
+
+      input.value = "";
+    }
+
+
   </script>
 </body>
 
