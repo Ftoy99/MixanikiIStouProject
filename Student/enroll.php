@@ -110,7 +110,6 @@ Secure(0);
                         <th>Date</th>
                         <th>Time Start</th>
                         <th>Time End</th>
-                        <th>Status</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -127,26 +126,6 @@ Secure(0);
                             $timestart = date('g:ia', strtotime($row["TimeS"]));
                             $timeend = date('g:ia', strtotime($row["TimeE"]));
                             $date = date("d-m-Y", strtotime($row["Date"]));
-                            if (strtotime(date("d-m-Y")) > strtotime($date)) {
-                              $Status = "Finished";
-                            } else {
-                              $current = $_SERVER["REQUEST_TIME"] + 60 * 60;
-                              $start = strtotime($row["TimeS"]);
-                              $end = strtotime($row["TimeE"]);
-                              if (date("d-m-Y") < $date) {
-                                $Status = "Pending";
-                              } else {
-                                if ($current > $end) {
-                                  $Status = "Finished";
-                                } else {
-                                  if ($current > $start) {
-                                    $Status = "Ongoing";
-                                  } else {
-                                    $Status = "Pending";
-                                  }
-                                }
-                              }
-                            }
                           echo '
                           <tr>
                           <td><div data-value="' . $row["LectureID"] . '">' . $counter . '</div></td>
@@ -154,7 +133,6 @@ Secure(0);
                           <td>' . $date . '</td>
                           <td>' . $timestart . '</td>
                           <td>' . $timeend . '</td>
-                          <td>' . $Status . '</td>
                           <td class="text-right py-0 align-middle">
                             <div class="btn-group btn-group-sm">
                               <button class="btn btn-primary" onclick="enrollLecture(this.parentNode.parentNode.parentNode)"><i class="fas fa-plus"></i></button>
