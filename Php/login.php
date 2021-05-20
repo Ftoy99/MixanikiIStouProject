@@ -25,17 +25,20 @@ if (mysqli_num_rows($result) == 1) {
         if ($row[4] == 0) {
             $_SESSION['UserID'] = $row[0];
             $_SESSION['Name'] = $row[2];
+            $_SESSION["AccType"]=0;
             header('Location: ../Student/dashboard.php');
         }
         if ($row[4] == 1) {
             $_SESSION['UserID'] = $row[0];
             $_SESSION['Name'] = $row[2];
+            $_SESSION["AccType"]=1;
             header('Location: ../Lecturer/dashboard.php');
         }
 
         if ($row[4] == 2) {
             $_SESSION['UserID'] = $row[0];
             $_SESSION['Name'] = $row[2];
+            $_SESSION["AccType"]=2;
             header('Location: ../Admin/dashboard.php');
         }
     } else {

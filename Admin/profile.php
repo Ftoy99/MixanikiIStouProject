@@ -1,6 +1,8 @@
 <?php
-include_once('../Php/connect.php');
 session_start();
+include_once('../Php/connect.php');
+include_once('../Php/security.php');
+Secure(2);
 ?>
 
 <!DOCTYPE html>

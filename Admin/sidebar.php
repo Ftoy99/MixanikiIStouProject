@@ -1,7 +1,8 @@
 <?php
 session_start();
-include_once '../Php/connect.php';
-$email = $_SESSION['email'];
+include_once('../Php/connect.php');
+include_once('../Php/security.php');
+Secure(2);
 ?>
 <head>
 <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
