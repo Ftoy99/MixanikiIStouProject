@@ -112,10 +112,12 @@ Secure(0);
                       <label for="name">Name</label>
                       <input type="text" class="form-control" id="name" value="<?php echo $name ?>">
                     </div>
+
                     <div class="form-group" hidden>
                       <label for="name">ID</label>
                       <input type="text" class="form-control" id="id" value="<?php echo $id ?>">
                     </div>
+                    
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">

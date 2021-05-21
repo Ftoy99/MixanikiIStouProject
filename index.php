@@ -35,7 +35,7 @@ session_start();
       if (isset($_SESSION['LoginError'])){
 
         if($_SESSION['LoginError']=='1'){
-          echo '<p class="login-box-msg" style="color: red;">Password Entered Dosent Match.</p>';
+          echo '<p class="login-box-msg" style="color: red;">Password Entered dosent Match.</p>';
         }
 
         if($_SESSION['LoginError']=='2'){

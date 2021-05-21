@@ -63,8 +63,8 @@ if (mysqli_num_rows($result) > 0) {
 
     $mail->send();
     //Say Nothing go to index.
-    //header("Location: ../index.php");
+    header("Location: ../index.php");
 } else {
     //Say Nothing go to index.
-    //header("Location: ../index.php");
+    header("Location: ../index.php");
 }

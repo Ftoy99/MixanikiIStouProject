@@ -124,7 +124,6 @@ Secure(1);
             }
             ?>
           </div>
-
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
